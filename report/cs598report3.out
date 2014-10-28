@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Related Work}{}% 2
+\BOOKMARK [1][-]{section.3}{Data Preprocessing}{}% 3
+\BOOKMARK [1][-]{section.4}{Feature Design and Selection}{}% 4
+\BOOKMARK [1][-]{section.5}{Algorithm Selection}{}% 5
+\BOOKMARK [2][-]{subsection.5.1}{Baseline: }{section.5}% 6
+\BOOKMARK [2][-]{subsection.5.2}{Neural Net}{section.5}% 7
+\BOOKMARK [2][-]{subsection.5.3}{Open: }{section.5}% 8
+\BOOKMARK [1][-]{section.6}{Optimization}{}% 9
+\BOOKMARK [2][-]{subsection.6.1}{Baseline: }{section.6}% 10
+\BOOKMARK [2][-]{subsection.6.2}{Neural Net}{section.6}% 11
+\BOOKMARK [2][-]{subsection.6.3}{Open: }{section.6}% 12
+\BOOKMARK [1][-]{section.7}{Parameter Selection}{}% 13
+\BOOKMARK [2][-]{subsection.7.1}{Baseline: }{section.7}% 14
+\BOOKMARK [2][-]{subsection.7.2}{Neural Net}{section.7}% 15
+\BOOKMARK [2][-]{subsection.7.3}{Open: }{section.7}% 16
+\BOOKMARK [1][-]{section.8}{Testing and Validation}{}% 17
+\BOOKMARK [2][-]{subsection.8.1}{Baseline: }{section.8}% 18
+\BOOKMARK [2][-]{subsection.8.2}{Neural Net}{section.8}% 19
+\BOOKMARK [2][-]{subsection.8.3}{Open: }{section.8}% 20
+\BOOKMARK [1][-]{section.9}{Discussion}{}% 21
