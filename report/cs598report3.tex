@@ -162,7 +162,7 @@ The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchst
 
 The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
-We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. For the baseline algorithm, we chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks, ..... For Linear SVM, ..... For XXX, ..... (one or two sentences summarizing each algorithm)
+We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. For the baseline algorithm, we chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks,......  For Linear SVM, ......  For XXX, ...... (one or two sentences summarizing each algorithm)
 
 The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... XXX..... (one or two sentences summarizing the performance)
 
@@ -170,7 +170,7 @@ Our empirical results, though preliminary, provide considerably accurate predict
 
 %-------------------------------------- Related work --------------------------------------%
 \section{Related Work}
-This section is optional this time
+This section is optional, but we can discuss some related works if there is some interesting literature worth mentioning here.
 
 
 
@@ -180,79 +180,92 @@ This section is optional this time
 
 
 %-------------------------------------- Data Preprocessing --------------------------------------%
-\section{Data Preprocessing}
+\section{Methodology}
+We present detailed descriptions of our methods featuring data preprocessing, feature selection, algorithm selection, and optimization techniques in this section.  We provide theoretical characterizations of our approaches and outline the results of these specific methods. We will illustrate the advantage of our methods using informative graphs and analyze the experimental results in next section.
+
+
+\subsection{Data Preprocessing Methods}
 We adopted different data preprocessing methods based on the characteristic of each machine learning algorithm. Since the dataset was given in a relatively organized format (csv files containing float numbers), we spared little effort to format data or extract numerical data from images. Most data proprecessing methods we used were adapted for a specialized algorithm.
 
 In Naive Bayes, we adopted normalization to  make it suitable for the algorithm. We obtained a set of scaled examples of unit norm after the normalization. We chose L2 norm since it resulted in the greatest improvement in terms of accuracy. We will give more details including the graph showing accuracy versus data preprocessing methods in later section (testing and validation).
 
-For Neural Networks, ..... 
+Data preprocessing in neural networks. 
 
-For Linear SVM, .....
+Data preprocessing in linear SVM.
 
-For XXX, ..... 
+Data preprocessing in XXX.
 
+\subsection{Feature Design and Selection}
+I'm not sure what exactly feature design and selection are. Need more thought on this part.
 
+\subsection{Algorithm Selection}
+We chose Gaussian Naive Bayes as the baseline algorithm, fully connected feedforward neural networks, linear support vector machine as required algorithms, together with XXX as the fourth optional algorithm. The following is a brief summary of central ideas of each algorithm.
 
+\subsubsection{Baseline: Naive Bayes}
+Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{pineaul5}.
 
+More to write about Naive Bayes.
 
+\subsubsection{Neural Net}
+Write something about Neural Net algorithm
 
+\subsubsection{Linear SVM }
+Write something about Linear SVM algorithm
 
+\subsubsection{Open: XXX}
+Write something about XXX algorithm
 
+\subsection{Optimization}
+Only certain algorithms require optimization. For example, we need to maximize the log likelihood in Naive Bayes. 
 
-%-------------------------------------- Feature Design and Selection --------------------------------------%
-\section{Feature Design and Selection}
-feature design and selection methods
-
-
-%-------------------------------------- Algorithm Selection --------------------------------------%
-\section{Algorithm Selection}
-
-\subsection{Baseline: Naive Bayes}
-\cite{pineaul5}
-
-\subsection{Neural Net}
-
-\subsection{Open: }
-algorithm selection for each of the 3 categories (baseline, neural net, open)
-
-%-------------------------------------- Optimization --------------------------------------%
-\section{Optimization}
-
-\subsection{Baseline: }
-
-\subsection{Neural Net}
-
-\subsection{Open: }
-optimization methods  for each of the 3 categories (baseline, neural net, open)
-
-
-%-------------------------------------- Parameter Selection --------------------------------------%
-\section{Parameter Selection}
+Write what you need to optimize and how you optimize it if your algorithm requires optimization.
 
 
 
-\subsection{Baseline: }
 
-\subsection{Neural Net}
 
-\subsection{Open: }
-model	order,	learning	rate,	etc.  for each of the 3 categories (baseline, neural net, open)
+
 
 %-------------------------------------- Testing and Validation --------------------------------------%
 \section{Testing and Validation}
+In this section, we present detailed experimental results, most of them in terms of graphs. We also evaluate the performance of four algorithms and provide analysis on merits and defects of each of the four algorithms. Our analysis concentrate on hyper-parameter selection and testing and validation results.
+
+\subsection{Parameter Selection}
+We first embark upon an analysis on the relation between hyper-parameters and algorithm performance.
+ 
+\subsubsection{Baseline: Naive Bayes}
+Write something about what are important parameters in NB and how you train them, with graphs showing how accuracy varies as these parameters vary
+
+\subsubsection{Neural Net}
+Write something about what are important parameters in NN and how you train them, with graphs showing how accuracy varies as these parameters vary
+
+\subsubsection{Linear SVM }
+Write something about what are important parameters in SVM and how you train them, with graphs showing how accuracy varies as these parameters vary
+
+\subsubsection{Open: XXX}
+Write something about what are important parameters in XXX and how you train them, with graphs showing how accuracy varies as these parameters vary
 
 
-\subsection{Baseline: }
 
-\subsection{Neural Net}
+\subsection{Testing Results Analysis}
+with more graphs, probably confusion matrices, roc curves.
 
-\subsection{Open: }
-detailed	analysis of	your	results,	outside	of	Kaggle  for each of the 3 categories (baseline, neural net, open)
+\subsubsection{Baseline: Naive Bayes}
+results of NB
+
+\subsubsection{Neural Net}
+results of NN
+
+\subsubsection{Linear SVM }
+results of SVM
+
+\subsubsection{Open: XXX}
+results of XXX 
 
 
 
 \section{Discussion}
-pros and cons	of	your	approach and	methodology)
+Talk about pros and cons	of	our	approaches and	methodology
 
 
 We	hereby	state	that	all	the	work	 presented	in	this	report	is	that	of	the	authors
