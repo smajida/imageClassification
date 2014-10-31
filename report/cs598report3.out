@@ -3,7 +3,7 @@
 \BOOKMARK [1][-]{section.3}{Data Preprocessing}{}% 3
 \BOOKMARK [1][-]{section.4}{Feature Design and Selection}{}% 4
 \BOOKMARK [1][-]{section.5}{Algorithm Selection}{}% 5
-\BOOKMARK [2][-]{subsection.5.1}{Baseline: }{section.5}% 6
+\BOOKMARK [2][-]{subsection.5.1}{Baseline: Naive Bayes}{section.5}% 6
 \BOOKMARK [2][-]{subsection.5.2}{Neural Net}{section.5}% 7
 \BOOKMARK [2][-]{subsection.5.3}{Open: }{section.5}% 8
 \BOOKMARK [1][-]{section.6}{Optimization}{}% 9

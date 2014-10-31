@@ -104,7 +104,7 @@ Emmanuel Bengio\\
       % \affaddr{Wallamaloo, New Zealand}\\
        \email{emmanuel.bengio@mail.mcgill.ca}        
 % 3rd. author
-\alignauthor Sherry Shanshan Ruan\\
+\alignauthor Sherry  Ruan\\
        \affaddr{McGill University}\\
       % \affaddr{1 Th{\o}rv{\"a}ld Circle}\\
      %  \affaddr{Hekla, Iceland}\\
@@ -160,17 +160,17 @@ In this project, we aim at classify a much more difficult variation of the MNIST
 \section{Introduction}
 The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchstone of effective image classification algorithms.  It is  extensively studied and tested by many machine learning techniques \cite{726791, Jou:2004:HNR:1123321.1123360, Huang:2009:SFD:1704175.1704194, mnistTheano} . The original dataset consists of more than 60,000 handwritten digits from 0 to 9, normalized to a 28x28 fixed image size \cite{mnistlecun}. 
 
-The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification.
+The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
-We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. In Naive Bayes, we adopt some basic data proprecessing techniques such as normalization to  better adapt to the algorithm. We chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks, ..... For Linear SVM, ..... For XXX, ..... (one or two sentences summarizing each algorithm)
+We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. For the baseline algorithm, we chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks, ..... For Linear SVM, ..... For XXX, ..... (one or two sentences summarizing each algorithm)
 
 The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... XXX..... (one or two sentences summarizing the performance)
 
-Our empirical results, though preliminary, provide considerably accurate predictions (especially XXX) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. This may motivate the further study on more specialized machine learning algorithms on image classification tasks.
+Our empirical results, though preliminary, provide considerably accurate predictions (especially XXX) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
 
 %-------------------------------------- Related work --------------------------------------%
 \section{Related Work}
-Optional
+This section is optional this time
 
 
 
@@ -181,8 +181,15 @@ Optional
 
 %-------------------------------------- Data Preprocessing --------------------------------------%
 \section{Data Preprocessing}
-data preprocessing methods
+We adopted different data preprocessing methods based on the characteristic of each machine learning algorithm. Since the dataset was given in a relatively organized format (csv files containing float numbers), we spared little effort to format data or extract numerical data from images. Most data proprecessing methods we used were adapted for a specialized algorithm.
 
+In Naive Bayes, we adopted normalization to  make it suitable for the algorithm. We obtained a set of scaled examples of unit norm after the normalization. We chose L2 norm since it resulted in the greatest improvement in terms of accuracy. We will give more details including the graph showing accuracy versus data preprocessing methods in later section (testing and validation).
+
+For Neural Networks, ..... 
+
+For Linear SVM, .....
+
+For XXX, ..... 
 
 
 
@@ -200,7 +207,8 @@ feature design and selection methods
 %-------------------------------------- Algorithm Selection --------------------------------------%
 \section{Algorithm Selection}
 
-\subsection{Baseline: }
+\subsection{Baseline: Naive Bayes}
+\cite{pineaul5}
 
 \subsection{Neural Net}
 
