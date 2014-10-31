@@ -42,10 +42,10 @@
 
 \begin{document}
 
-\title{Digit Classification
+\title{Handwritten Digits Classification
 % \titlenote{(Does NOT produce the permission block, copyright information nor page numbering). For use with ACM\_PROC\_ARTICLE-SP.CLS. Supported by ACM.}
 }
-\subtitle{[Team XXX: COMP 598 Group Project 3]
+\subtitle{[Team Y.E.S.: COMP 598 Group Project 3]
 \titlenote{
 The dataset and the implementation of the algorithm described in this report is available at
 \url{https://github.com/yutingyw/imageClassification}}}
@@ -91,24 +91,24 @@ The dataset and the implementation of the algorithm described in this report is 
 %
 % 1st. author
 \alignauthor
-Emmanuel Bengio\\
-  \affaddr{McGill University}\\
-       %\affaddr{1932 Wallamaloo Lane}\\
-      % \affaddr{Wallamaloo, New Zealand}\\
-       \email{emmanuel.bengio@mail.mcgill.ca}       
-% 2nd. author
-\alignauthor
 Yuting Wen \\
  \affaddr{McGill University}\\
       % \affaddr{P.O. Box 1212}\\
       % \affaddr{Dublin, Ohio 43017-6221}\\
-       \email{yuting.wen@mail.mcgill.ca}
+       \email{yuting.wen@mail.mcgill.ca}     
+% 2nd. author
+\alignauthor
+Emmanuel Bengio\\
+  \affaddr{McGill University}\\
+       %\affaddr{1932 Wallamaloo Lane}\\
+      % \affaddr{Wallamaloo, New Zealand}\\
+       \email{emmanuel.bengio@mail.mcgill.ca}        
 % 3rd. author
-\alignauthor Sherry  Ruan\\
+\alignauthor Sherry Shanshan Ruan\\
        \affaddr{McGill University}\\
       % \affaddr{1 Th{\o}rv{\"a}ld Circle}\\
      %  \affaddr{Hekla, Iceland}\\
-     \email{sherry.s.ruan@gmail.com}
+     \email{shanshan.ruan@mail.mcgill.ca}
 %\and  % use '\and' if you need 'another row' of author names
 %% 4th. author
 %\alignauthor Lawrence P. Leipuner\\
@@ -143,7 +143,7 @@ Yuting Wen \\
 
 \maketitle
 \begin{abstract}
-TBD
+In this project, we aim at classify a much more difficult variation of the MNIST dataset of handwritten digits. We adopt feature selection and construction techniques together with four main machine learning algorithms: Gaussian Naive Bayes, fully connected Feedforward Neural Network, Linear Support Vector Machine, and XXX (name of the 4th algorithm here). We analyze and assess the parameter selection process and the performance of each algorithm. We conclude the report with discussion and suggestions for further improvement.
 \end{abstract}
 
 %% A category with the (minimum) three required fields
@@ -158,7 +158,15 @@ TBD
 
 %-------------------------------------- Introduction  --------------------------------------%
 \section{Introduction}
-overview	of	approach
+The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchstone of effective image classification algorithms.  It is  extensively studied and tested by many machine learning techniques \cite{726791, Jou:2004:HNR:1123321.1123360, Huang:2009:SFD:1704175.1704194, mnistTheano} . The original dataset consists of more than 60,000 handwritten digits from 0 to 9, normalized to a 28x28 fixed image size \cite{mnistlecun}. 
+
+The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification.
+
+We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. In Naive Bayes, we adopt some basic data proprecessing techniques such as normalization to  better adapt to the algorithm. We chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks, ..... For Linear SVM, ..... For XXX, ..... (one or two sentences summarizing each algorithm)
+
+The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... XXX..... (one or two sentences summarizing the performance)
+
+Our empirical results, though preliminary, provide considerably accurate predictions (especially XXX) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. This may motivate the further study on more specialized machine learning algorithms on image classification tasks.
 
 %-------------------------------------- Related work --------------------------------------%
 \section{Related Work}
