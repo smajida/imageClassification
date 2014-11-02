@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 OCT 2014 16:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  31 OCT 2014 00:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -415,40 +415,59 @@ LaTeX Font Info:    Try loading font information for T1+aett on input line 145.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-No file cs598report3.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 246.
+Overfull \hbox (8.11638pt too wide) in paragraph at lines 146--148
+\T1/aer/m/n/9 four main ma-chine learn-ing al-go-rithms: Gaus-sian Naive Bayes,
+
+ []
+
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 246.
+(./cs598report3.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 275.
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.275 \end{document}
+                     [2]pdfTeX warning (ext4): destination with the same identi
+fier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.275 \end{document}
+                     [3
 
-(./cs598report3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 246.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 246.
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 275.
+ (./cs598report3.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 275.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 275.
 Package rerunfilecheck Info: File `cs598report3.out' has not changed.
-(rerunfilecheck)             Checksum: EF52BD237F3245A6E2AC4F2D7BB7EE92;1171.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 246.
+(rerunfilecheck)             Checksum: DADE45C546D0954E40A52603E1D5D5B2;1585.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 275.
  ) 
 Here is how much of TeX's memory you used:
- 6403 strings out of 493315
- 90928 string characters out of 6137904
- 175164 words of memory out of 5000000
- 9734 multiletter control sequences out of 15000+600000
- 43684 words of font info for 59 fonts, out of 8000000 for 9000
+ 6431 strings out of 493315
+ 91508 string characters out of 6137904
+ 179420 words of memory out of 5000000
+ 9746 multiletter control sequences out of 15000+600000
+ 47303 words of font info for 63 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 41i,11n,28p,260b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,11n,29p,550b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texliv
-e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/
-2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/te
-xmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dis
-t/fonts/type1/urw/times/utmb8a.pfb>
-Output written on cs598report3.pdf (1 page, 65118 bytes).
+e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/20
+13/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type
+1/urw/times/utmri8a.pfb>
+Output written on cs598report3.pdf (3 pages, 109747 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 120 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
- 169 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 181 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 193 words of extra memory for PDF output out of 10000 (max. 10000000)
 
