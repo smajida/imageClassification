@@ -201,10 +201,39 @@ I'm not sure what exactly feature design and selection are. Need more thought on
 \subsection{Algorithm Selection}
 We chose Gaussian Naive Bayes as the baseline algorithm, fully connected feedforward neural networks, linear support vector machine as required algorithms, together with XXX as the fourth optional algorithm. The following is a brief summary of central ideas of each algorithm.
 
-\subsubsection{Baseline: Naive Bayes}
+\subsubsection{Baseline: Gaussian Naive Bayes}
 Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{pineaul5}.
 
-More to write about Naive Bayes.
+Assume we are provided with $n$ training examples and $m$ features. In discrete case, Bayes rule and Naive Bayes assumption tell us that
+\begin{align*}
+P(Y | X_1 \cdots X_m ) &= \frac{P(Y) P ( X_1 \cdots X_m| Y )}{P(X_1 \cdots X_m)} &\textrm{by Bayes rule}\\
+&= \frac{P(Y) \Pi_{j=1}^m  P ( X_j | Y )}{P(X_1 \cdots X_m)} &\textrm{by NB assumption}
+\end{align*}
+Hence given a new instance $(X_1\cdots X_m) = (x_1\cdots x_m)$, the predicted label for $(x_1\cdots x_m)$ is
+\[
+\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m P(X_j=x_j | Y = y_i)
+\]
+However, in image classification task, each image is represented by an array of float numbers which can be regarded as real numbers. In order to address the continuous case, we introduce Gaussian Naive Bayes and extend the above formula as follows. We assume $P(X_j=x_j | Y = y_i)$ has a normal (Gaussian) distribution with mean $\mu_{ij}$ and variance $\sigma_{ij}$. Note that while $X_j$ are continuous random variables which can stand for pixel intensities,  $Y$ is a discrete random variable corresponding to labels $1 - 9$.  The probability density function for $P(X_j=x_j | Y = y_i)$ is given below:
+\[
+P(X_j=x_j | Y = y_i) =  f (x_j, \mu_{ij}, \sigma_{ij} ) =\frac{1}{\sigma_{ij}\sqrt{2\pi}}e^{-\frac{(x-\mu_{ij})^2}{2(\sigma_{ij})^2}}
+\]
+In order to train Gaussian Naive Bayes, we need to approximate $P(Y=y_i)$ as well as $\mu_{ij}$ and  $\sigma_{ij}$ for $i$ ranging from $1$ to $n$ (number of training examples) and $j$ ranging from $1$ to $m$ (number of features). 
+\[
+\hat{\mu}_{i'j'} = \frac{\sum_{i=1}^n x_{ij'} \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})}
+\]
+\[
+\hat{\sigma}_{i'j'} =  \frac{\sum_{i=1}^n ( x_{ij'}-\hat{\mu}_{i'j'})^2 \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})}
+\]
+where $\delta$ is the Kronecker's delta. It is equal to $1$ if two variables are the same and $0$ otherwise. $x_{ij}$ denotes the $j$th feature in the $i$th  example.
+
+
+Once we finish estimation of parameters, we use the following equation to predict labels for a given instance $x_1 \cdots x_m$. 
+\[
+\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )
+\]
+where $f$ denotes the pdf of the normal distribution.
+
+
 
 \subsubsection{Neural Net}
 Write something about Neural Net algorithm
@@ -227,7 +256,7 @@ Write what you need to optimize and how you optimize it if your algorithm requir
 
 
 %-------------------------------------- Testing and Validation --------------------------------------%
-\section{Testing and Validation}
+\section{Testing and Validation Results}
 In this section, we present detailed experimental results, most of them in terms of graphs. We also evaluate the performance of four algorithms and provide analysis on merits and defects of each of the four algorithms. Our analysis concentrate on hyper-parameter selection and testing and validation results.
 
 \subsection{Parameter Selection}
