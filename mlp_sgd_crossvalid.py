@@ -207,10 +207,12 @@ def main(batch_size=50,n_fold=5):
     
     print 'Loading data...'
     
-    all_train_X = np.float32(np.load('/home/yw/imageClassification/data_and_scripts/train_inputs.npy') / 255.)
+    all_train_X = np.float32(np.load('/home/yw/imageClassification/data_and_scripts/train_inputs.npy'))
     all_train_Y = _onehot(np.load('/home/yw/imageClassification/data_and_scripts/train_outputs.npy').reshape((all_train_X.shape[0],1)), 10)
-    test_X = np.float32(np.load('/home/yw/imageClassification/data_and_scripts/test_inputs.npy') / 255.) 
-           
+    test_X = np.float32(np.load('/home/yw/imageClassification/data_and_scripts/test_inputs.npy')) 
+    print all_train_X[:10]
+    print all_train_Y[:10]
+    
     N,M = all_train_X.shape 
     n = N // n_fold
 
@@ -219,7 +221,7 @@ def main(batch_size=50,n_fold=5):
     for lr in [0.01,0.02,0.03,0.04,0.05]:
         print 'Learning rate:',lr
         
-        for layer_size_list in [[M,100,10],[M,500,200,10],[M,1000,500,100,10]]:
+        for layer_size_list in [[M,100,10],[M,1000,10],[M,500,200,10],[M,1000,500,100,10]]:
             print 'Layer size list:', layer_size_list
             
             err_list = []

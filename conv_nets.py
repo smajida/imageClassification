@@ -1,4 +1,5 @@
 import numpy as np
+import csv
 
 import theano
 import theano.tensor as T
@@ -9,8 +10,9 @@ from theano.tensor.signal import downsample
 def make_hidden_layer(x, nin, nout, activation):
     print (nin,nout),(nout,)
     k = np.sqrt(6./(nin+nout))
-    W = theano.shared(np.random.uniform(-k,k,(nin,nout)),name='W')
-    b = theano.shared(np.zeros((nout)),name='b')
+    W = theano.shared(np.float32(np.random.uniform(-k,k,(nin,nout))),name='W')
+    b_values = np.zeros((nout,),dtype=theano.config.floatX)
+    b = theano.shared(value=b_values, name='b',borrow=True)
     return [W,b], activation(T.dot(x,W)+b)
 
 
@@ -22,7 +24,7 @@ def make_conv_layer(input, filter_shape, image_shape, poolsize=(3, 3)):
                np.prod(poolsize))
 
     k = np.sqrt(6./(fan_in+fan_out))
-    W = theano.shared(np.random.uniform(-k, k, size=filter_shape),name='Wconv',borrow=True)
+    W = theano.shared(np.float32(np.random.uniform(-k, k, size=filter_shape)),name='Wconv',borrow=True)
     
     # bias on individual filters
     b_values = np.zeros((filter_shape[0],), dtype=theano.config.floatX)
@@ -56,7 +58,7 @@ class ConvNet:
                  sizeA = 13,
                  sizeB = 7,
                  nhidden = 100,
-                 gamma = 1e-4):
+                 gamma = 1e-3):
         self.batch_size = batch_size
         x = T.matrix()
         y = T.matrix()
@@ -93,13 +95,14 @@ class ConvNet:
         
         self.learn = theano.function([x,y,lr],
                                      cost,
-                                     updates=updates)
+                                     updates=updates,
+                                    allow_input_downcast=True)
         self.evaluate = theano.function([x],
                                         o)
         
     def fit(self,data, step_test, testfunc, nepochs=2000, tau = 80):
         X, Y = data
-        lr = 0.01
+        lr = 0.014
 
         nbatches = X.shape[0] / self.batch_size
 
@@ -113,13 +116,15 @@ class ConvNet:
                 x += np.float32(np.random.uniform(-4./255,4./255,x.shape))
                 c += self.learn(x,
                                 Y[batch*self.batch_size:(batch+1)*self.batch_size],
-                                lr * tau / (i * 1. + tau))
+                                np.float32(lr * tau / (i * 1. + tau)))
             print i,c
             if i%step_test == 0:
                 testfunc()
     def test(self, data):
         x,Y = data
         y = self.eval(x)
+        print y
+        print np.equal(np.argmax(y,axis=1),(np.argmax(Y,axis=1))).sum()
         cerr = 1-1.*np.equal(np.argmax(y,axis=1),(np.argmax(Y,axis=1))).sum() / Y.shape[0]
         # return mean square error and classification error
         return ((Y-y)**2).sum() / y.shape[0], cerr
@@ -139,8 +144,8 @@ def onehot(a,maxv):
 def main():
     n_folds = 5
     
-    all_X = np.float32(np.load('train_inputs.npy') / 255.)
-    all_Y = np.load('train_outputs.npy').reshape((all_X.shape[0],1))
+    all_X = np.float32(np.load('./data_and_scripts/train_inputs.npy') / 255.)
+    all_Y = np.load('./data_and_scripts/train_outputs.npy').reshape((all_X.shape[0],1))
 
     n_examples = all_X.shape[0]
     fs = foldsize = n_examples / n_folds
@@ -162,24 +167,26 @@ def main():
 
 
 def test():
-    all_X = np.float32(np.load('train_inputs.npy') / 255.)
-    all_Y = onehot(np.load('train_outputs.npy').reshape((all_X.shape[0],1)), 10)
-    test_X = np.float32(np.load('test_inputs.npy') / 255.)#[:1000]
+    all_X = np.float32(np.load('./data_and_scripts/train_inputs.npy') / 255.)
+    all_Y = onehot(np.load('./data_and_scripts/train_outputs.npy').reshape((all_X.shape[0],1)), 10)
+    test_X = np.float32(np.load('./data_and_scripts/test_inputs.npy') / 255.)#[:1000]
     net = ConvNet()
     #all_X = all_X[:1000]
     #all_Y = all_Y[:1000]
     def showerr():
         print net.test([all_X,all_Y])
         y = net.eval(test_X)
-        f = file('test_output.csv','w')
-        f.write("Id,Prediction\n")
+        f = open('./results/conv_test_outputs.csv','wb')
+	writer = csv.writer(f,delimiter=',')
+        writer.writerow("Id,Prediction")
         for i,p in enumerate(y):
-            f.write("%d,%d\n"%(i+1,np.argmax(p)))
+	    row = [i+1,np.argmax(p)]
+            writer.writerow(row)
         f.close()
     net.fit([all_X,all_Y], 10, showerr)
         
     
 
 if __name__=="__main__":
-    main()
-    #test()
+    #main()
+    test()
