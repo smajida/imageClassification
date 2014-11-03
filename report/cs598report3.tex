@@ -39,13 +39,14 @@
 }
 \usepackage{bbm}
 \usepackage{dsfont}
+\usepackage[font={small,it}]{caption}
 
 \begin{document}
 
-\title{Digit Classification
+\title{Handwritten Digits Classification
 % \titlenote{(Does NOT produce the permission block, copyright information nor page numbering). For use with ACM\_PROC\_ARTICLE-SP.CLS. Supported by ACM.}
 }
-\subtitle{[Team XXX: COMP 598 Group Project 3]
+\subtitle{[Team Y.E.S.: COMP 598 Group Project 3]
 \titlenote{
 The dataset and the implementation of the algorithm described in this report is available at
 \url{https://github.com/yutingyw/imageClassification}}}
@@ -91,24 +92,24 @@ The dataset and the implementation of the algorithm described in this report is 
 %
 % 1st. author
 \alignauthor
-Emmanuel Bengio\\
-  \affaddr{McGill University}\\
-       %\affaddr{1932 Wallamaloo Lane}\\
-      % \affaddr{Wallamaloo, New Zealand}\\
-       \email{emmanuel.bengio@mail.mcgill.ca}       
-% 2nd. author
-\alignauthor
 Yuting Wen \\
  \affaddr{McGill University}\\
       % \affaddr{P.O. Box 1212}\\
       % \affaddr{Dublin, Ohio 43017-6221}\\
-       \email{yuting.wen@mail.mcgill.ca}
+       \email{yuting.wen@mail.mcgill.ca}     
+% 2nd. author
+\alignauthor
+Emmanuel Bengio\\
+  \affaddr{McGill University}\\
+       %\affaddr{1932 Wallamaloo Lane}\\
+      % \affaddr{Wallamaloo, New Zealand}\\
+       \email{emmanuel.bengio@mail.mcgill.ca}        
 % 3rd. author
 \alignauthor Sherry  Ruan\\
        \affaddr{McGill University}\\
       % \affaddr{1 Th{\o}rv{\"a}ld Circle}\\
      %  \affaddr{Hekla, Iceland}\\
-     \email{sherry.s.ruan@gmail.com}
+     \email{shanshan.ruan@mail.mcgill.ca}
 %\and  % use '\and' if you need 'another row' of author names
 %% 4th. author
 %\alignauthor Lawrence P. Leipuner\\
@@ -143,7 +144,7 @@ Yuting Wen \\
 
 \maketitle
 \begin{abstract}
-TBD
+In this project, we aim at classify a much more difficult variation of the MNIST dataset of handwritten digits. We adopt feature selection and construction techniques together with four main machine learning algorithms: Gaussian Naive Bayes, fully connected Feedforward Neural Network, Linear Support Vector Machine, and XXX (name of the 4th algorithm here). We analyze and assess the parameter selection process and the performance of each algorithm. We conclude the report with discussion and suggestions for further improvement.
 \end{abstract}
 
 %% A category with the (minimum) three required fields
@@ -158,22 +159,97 @@ TBD
 
 %-------------------------------------- Introduction  --------------------------------------%
 \section{Introduction}
-overview	of	approach
+The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchstone of effective image classification algorithms.  It is  extensively studied and tested by many machine learning techniques \cite{Huang:2009:SFD:1704175.1704194, Jou:2004:HNR:1123321.1123360,  726791,  mnistTheano} . The original dataset consists of more than 60,000 handwritten digits from 0 to 9, normalized to a 28x28 fixed image size \cite{mnistlecun}. 
+
+The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
+
+We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. For the baseline algorithm, we chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks,......  For Linear SVM, ......  For XXX, ...... (one or two sentences summarizing each algorithm)
+
+The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... XXX..... (one or two sentences summarizing the performance)
+
+Our empirical results, though preliminary, provide considerably accurate predictions (especially XXX) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
+
+
+
 
 %-------------------------------------- Related work --------------------------------------%
 \section{Related Work}
-Optional
-
-
-
-
+Optional this time. We can write something here if there's any good related work worth discussing.
 
 
 
 
 %-------------------------------------- Data Preprocessing --------------------------------------%
-\section{Data Preprocessing}
-data preprocessing methods
+\section{Methodology}
+We present detailed descriptions of our methods featuring data preprocessing, feature selection, algorithm selection, and optimization techniques in this section.  We provide theoretical characterizations of our approaches and outline the results of these specific methods. We will illustrate the advantage of our methods using informative graphs and analyze the experimental results in next section.
+
+
+\subsection{Data Preprocessing Methods}
+We adopted different data preprocessing methods based on the characteristic of each machine learning algorithm. Since the dataset was given in a relatively organized format (csv files containing float numbers), we spared little effort to format data or extract numerical data from images. Most data proprecessing methods we used were adapted for a specialized algorithm.
+
+In Naive Bayes, we adopted normalization to  make it suitable for the algorithm. We obtained a set of scaled examples of unit norm after the normalization. We chose L2 norm since it resulted in the greatest improvement in terms of accuracy. We will give more details including the graph showing accuracy versus data preprocessing methods in later section (testing and validation).
+
+Data preprocessing in neural networks. 
+
+Data preprocessing in linear SVM.
+
+Data preprocessing in XXX.
+
+\subsection{Feature Design and Selection}
+I'm not sure what exactly feature design and selection are. Need more thought on this part.
+
+\subsection{Algorithm Selection}
+We chose Gaussian Naive Bayes as the baseline algorithm, fully connected feedforward neural networks, linear support vector machine as required algorithms, together with XXX as the fourth optional algorithm. The following is a brief summary of central ideas of each algorithm.
+
+\subsubsection{Baseline: Gaussian Naive Bayes}
+Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
+
+Assume we are provided with $n$ training examples and $m$ features. In discrete case, Bayes rule and Naive Bayes assumption tell us that
+\begin{align*}
+P(Y | X_1 \cdots X_m ) &= \frac{P(Y) P ( X_1 \cdots X_m| Y )}{P(X_1 \cdots X_m)} &\textrm{by Bayes rule}\\
+&= \frac{P(Y) \Pi_{j=1}^m  P ( X_j | Y )}{P(X_1 \cdots X_m)} &\textrm{by NB assumption}
+\end{align*}
+Hence given a new instance $(X_1\cdots X_m) = (x_1\cdots x_m)$, the predicted label for $(x_1\cdots x_m)$ is
+\begin{equation}
+\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m P(X_j=x_j | Y = y_i) \label{eq:max}
+\end{equation}
+However, in image classification task, each image is represented by an array of float numbers which can be regarded as real numbers. In order to address the continuous case, we introduce Gaussian Naive Bayes and extend the above formula as follows. We assume $P(X_j=x_j | Y = y_i)$ has a normal (Gaussian) distribution with mean $\mu_{ij}$ and variance $\sigma_{ij}$. Note that while $X_j$ are continuous random variables which can stand for pixel intensities,  $Y$ is a discrete random variable corresponding to labels $1 - 9$.  The probability density function for $P(X_j=x_j | Y = y_i)$ is given below:
+\begin{equation}
+P(X_j=x_j | Y = y_i) =  f (x_j, \mu_{ij}, \sigma_{ij} ) =\frac{1}{\sigma_{ij}\sqrt{2\pi}}e^{-\frac{(x-\mu_{ij})^2}{2(\sigma_{ij})^2}} \label{eq:pdf}
+\end{equation}
+In order to train Gaussian Naive Bayes, we need to approximate $P(Y=y_{i'})$ as well as $\mu_{i'j'}$ and  $\sigma_{i'j'}^2$ for $y_{i'}$ over all labels ($0$ to $9$) and $j'$ ranging from $1$ to $m$ (number of features). 
+\begin{equation}
+\hat{\mu}_{i'j'} = \frac{\sum_{i=1}^n x_{ij'} \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})} \label{eq:mean}
+\end{equation}
+\begin{equation}
+\hat{\sigma}_{i'j'}^2 =  \frac{\sum_{i=1}^n ( x_{ij'}-\hat{\mu}_{i'j'})^2 \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})} \label{eq:var}
+\end{equation}
+where $\delta$ is the Kronecker's delta. It is equal to $1$ if two variables are the same and $0$ otherwise. $x_{ij}$ denotes the $j$th feature in the $i$th  example.
+
+
+Once we finish estimation of parameters, we use the following equation to predict labels for a given instance $x_1 \cdots x_m$. 
+\begin{equation}
+\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} ) \label{eq: argmax}
+\end{equation}
+where $f$ denotes the pdf of the normal distribution.
+
+
+
+\subsubsection{Neural Net}
+Write something about Neural Net algorithm
+
+\subsubsection{Linear SVM }
+Write something about Linear SVM algorithm
+
+\subsubsection{Open: XXX}
+Write something about XXX algorithm
+
+\subsection{Optimization}
+Some algorithms involve maximization or minimization processes. For example, we need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$ in Naive Bayes. Since the log function is monotonically increasing, it preserves the maximum. Hence, we can maximize the log likelihood as shown in equation (\ref{eq:log}) instead of the original equation (\ref{eq: argmax}) :
+\begin{equation}
+\arg \max_{y_i} \log P(Y = y_i) + \sum_{j=1}^m \log f (x_j, \mu_{ij}, \sigma_{ij} ) \label{eq:log}
+\end{equation}
+In Neural Network, ... . In linear SVM, ... . In XXX, ... .
 
 
 
@@ -181,62 +257,65 @@ data preprocessing methods
 
 
 
-
-
-
-%-------------------------------------- Feature Design and Selection --------------------------------------%
-\section{Feature Design and Selection}
-feature design and selection methods
-
-
-%-------------------------------------- Algorithm Selection --------------------------------------%
-\section{Algorithm Selection}
-
-\subsection{Baseline: }
-
-\subsection{Neural Net}
-
-\subsection{Open: }
-algorithm selection for each of the 3 categories (baseline, neural net, open)
-
-%-------------------------------------- Optimization --------------------------------------%
-\section{Optimization}
-
-\subsection{Baseline: }
-
-\subsection{Neural Net}
-
-\subsection{Open: }
-optimization methods  for each of the 3 categories (baseline, neural net, open)
-
-
-%-------------------------------------- Parameter Selection --------------------------------------%
-\section{Parameter Selection}
-
-
-
-\subsection{Baseline: }
-
-\subsection{Neural Net}
-
-\subsection{Open: }
-model	order,	learning	rate,	etc.  for each of the 3 categories (baseline, neural net, open)
 
 %-------------------------------------- Testing and Validation --------------------------------------%
 \section{Testing and Validation}
+In this section, we present detailed experimental results, most of them in terms of graphs. We also evaluate the performance of four algorithms and provide analysis on merits and defects of each of the four algorithms. Our analysis concentrate on hyper-parameter selection and testing and validation results.
+
+\subsection{Parameter Selection}
+We first embark upon an analysis on the relation between hyper-parameters and algorithm performance.
+ 
+\subsubsection{Baseline: Naive Bayes}
+Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessarily need to include Laplace smoothing. Instead, we show how accuracy varies as we alter the norm parameter in normalization preprocessing process. When we normalized data, we tried both $L1$ and $L2$ norm.  As presented in  Figure \ref{fig:gnbparam}, Gaussian Naive Bayes together with the normalization preprocessing method (with $L2$ norm) brings out the most satisfactory results.   In particular, we also compare the performance of Gaussian Naive Bayes with other Naive Bayes algorithm (multinomial Naive Bayes) to  observe how normalization affects the prediction accuracy. Gaussian Naive Bayes in general outperforms Multinomial Naive Bayes. More interestingly,  while Multinomial Naive Bayes performs worse on the normalized data (especially $L1$),  Gaussian Naive Bayes produces higher prediction accuracy as we further processed the data (from no normalization to $L1$, and from $L1$ to $L2$).
+\begin{figure} 
+\centering
+\includegraphics[width=0.9\columnwidth]{graphs/gnb_param.png}  
+\caption{Accuracy versus different Naive Bayes using the original data, $L1$-normalized data, and $L2$-normalized data (train set size = 40,000 and test set size = 10,000)}
+\label{fig:gnbparam}
+\end{figure}
 
 
-\subsection{Baseline: }
+\subsubsection{Neural Net}
+Write something about what are important parameters in NN and how you train them, with graphs showing how accuracy varies as these parameters vary
 
-\subsection{Neural Net}
+\subsubsection{Linear SVM }
+Write something about what are important parameters in SVM and how you train them, with graphs showing how accuracy varies as these parameters vary
 
-\subsection{Open: }
-detailed	analysis of	your	results,	outside	of	Kaggle  for each of the 3 categories (baseline, neural net, open)
+\subsubsection{Open: XXX}
+Write something about what are important parameters in XXX and how you train them, with graphs showing how accuracy varies as these parameters vary
+
+
+
+\subsection{Testing Results Analysis}
+We provide further analysis on testing and validation results with help of figures and confusion matrices. We still divide the analysis into four parts based on four algorithms.
+
+\subsubsection{Baseline: Naive Bayes}
+We also present the confusion matrix corresponding to the Gaussian Naive Bayes algorithm running with 5-fold cross validation on $L2$ normalized data in Figure \ref{fig:gnb_cm}. We normalized the row vectors of the confusion matrix so that we could make fair comparison among different classes. As can be seen from the normalized confusion matrix, the GNB classifier is capable of distinguish $0$ and $1$ from the others, but it performs relatively poor when classifying $2$ to $7$. Its comparatively promising performance on classifying $0$ may be due to the fact that the digit $0$ is least susceptible to all artificial alterations imposed on the original MNIST dataset (especially rotation).
+\begin{figure} 
+\centering
+\includegraphics[width=0.9\columnwidth]{graphs/gnb_cm1.png}  
+\caption{Normalized confusion matrix for Gaussian Naive Bayes with train set size = 40,000 and test set size = 10,000}
+\label{fig:gnb_cm}
+\end{figure}
+
+
+\subsubsection{Neural Net}
+results of NN
+
+\subsubsection{Linear SVM }
+results of SVM
+
+\subsubsection{Open: XXX}
+results of XXX 
 
 
 
 \section{Discussion}
-pros and cons	of	your	approach and	methodology)
+The artificial alteration imposed on the MNIST handwritten digit dataset brings about a great amount of noise and complicates the classification task. Many typical machine learning algorithms are not suitable for this modified dataset anymore. For example, Naive Bayes can only achieve up to  $40 \%$ accuracy, even with Gaussian Naive Bayes and many refined preprocessing methods.  More elaborate feature selection and preprocessing techniques may be capable of improving the prediction accuracy using Naive Bayes, but it appears to us that it is unfeasible to achieve an accuracy as high (above $80 \%$) as other more sophisticated  algorithm in deep learning.
+
+On the other hand, deep learning ......
+
+To summarize, we endeavored to classify the modified handwritten digits using four different algorithms. While some are capable of  achieving surprisingly high accuracy,  some illustrate the limitation of "shallow" algorithms. After all, machine learning problems can never be unraveled using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
 
 
 We	hereby	state	that	all	the	work	 presented	in	this	report	is	that	of	the	authors
