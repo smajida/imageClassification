@@ -257,6 +257,24 @@ We use 5-fold cross-validation to select learning rates and numbers of hidden la
 
 A SVM constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
 
+Given training set $x_i\in R^p,i=1,...,n$, in two classes, and a target vector $y\in R^n$ with $y_i\in \{1,-1\}$, SVM sovles the following primal problem:
+\[
+\min_{w,b,\xi} \frac12 w^T w + C \sum_{i=1}^n \xi_i
+\]
+\[
+\mbox{subject to } y_i (w^T \phi(x_i)+b)\geq 1-\xi_i,
+\xi\geq 0, i=1,...,n.
+\]
+Its dual is
+\[
+\min_{\alpha}\frac12 \alpha^T Q\alpha - e^T\alpha
+\]
+\[
+\mbox{subject to } y^T\alpha = 0, 0\leq \alpha_i\leq C,i=1,...,l
+\]
+where $e$ is the vector of all ones, $C>0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij}=K(x_i,x_j)$ and $\phi(x_i)^T\phi(x)$ is the kernel. The decision function is $sgn(\sum_{i=1}^n y_i\alpha_i K(x_i,x)+\rho)$.
+
+
 \subsubsection{Convolutional Neural Network}
 Write something about XXX algorithm
 
