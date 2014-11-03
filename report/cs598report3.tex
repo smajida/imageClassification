@@ -158,7 +158,7 @@ In this project, we aim at classify a much more difficult variation of the MNIST
 
 %-------------------------------------- Introduction  --------------------------------------%
 \section{Introduction}
-The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchstone of effective image classification algorithms.  It is  extensively studied and tested by many machine learning techniques \cite{726791, Jou:2004:HNR:1123321.1123360, Huang:2009:SFD:1704175.1704194, mnistTheano} . The original dataset consists of more than 60,000 handwritten digits from 0 to 9, normalized to a 28x28 fixed image size \cite{mnistlecun}. 
+The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchstone of effective image classification algorithms.  It is  extensively studied and tested by many machine learning techniques \cite{Huang:2009:SFD:1704175.1704194, Jou:2004:HNR:1123321.1123360,  726791,  mnistTheano} . The original dataset consists of more than 60,000 handwritten digits from 0 to 9, normalized to a 28x28 fixed image size \cite{mnistlecun}. 
 
 The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
@@ -168,9 +168,7 @@ The performance of algorithms varies widely. The base line algorithm, Naive Baye
 
 Our empirical results, though preliminary, provide considerably accurate predictions (especially XXX) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
 
-%-------------------------------------- Related work --------------------------------------%
-\section{Related Work}
-This section is optional, but we can discuss some related works if there is some interesting literature worth mentioning here.
+
 
 
 
@@ -202,7 +200,7 @@ I'm not sure what exactly feature design and selection are. Need more thought on
 We chose Gaussian Naive Bayes as the baseline algorithm, fully connected feedforward neural networks, linear support vector machine as required algorithms, together with XXX as the fourth optional algorithm. The following is a brief summary of central ideas of each algorithm.
 
 \subsubsection{Baseline: Gaussian Naive Bayes}
-Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{pineaul5}.
+Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
 
 Assume we are provided with $n$ training examples and $m$ features. In discrete case, Bayes rule and Naive Bayes assumption tell us that
 \begin{align*}
@@ -210,27 +208,27 @@ P(Y | X_1 \cdots X_m ) &= \frac{P(Y) P ( X_1 \cdots X_m| Y )}{P(X_1 \cdots X_m)}
 &= \frac{P(Y) \Pi_{j=1}^m  P ( X_j | Y )}{P(X_1 \cdots X_m)} &\textrm{by NB assumption}
 \end{align*}
 Hence given a new instance $(X_1\cdots X_m) = (x_1\cdots x_m)$, the predicted label for $(x_1\cdots x_m)$ is
-\[
-\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m P(X_j=x_j | Y = y_i)
-\]
+\begin{equation}
+\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m P(X_j=x_j | Y = y_i) \label{eq:max}
+\end{equation}
 However, in image classification task, each image is represented by an array of float numbers which can be regarded as real numbers. In order to address the continuous case, we introduce Gaussian Naive Bayes and extend the above formula as follows. We assume $P(X_j=x_j | Y = y_i)$ has a normal (Gaussian) distribution with mean $\mu_{ij}$ and variance $\sigma_{ij}$. Note that while $X_j$ are continuous random variables which can stand for pixel intensities,  $Y$ is a discrete random variable corresponding to labels $1 - 9$.  The probability density function for $P(X_j=x_j | Y = y_i)$ is given below:
-\[
-P(X_j=x_j | Y = y_i) =  f (x_j, \mu_{ij}, \sigma_{ij} ) =\frac{1}{\sigma_{ij}\sqrt{2\pi}}e^{-\frac{(x-\mu_{ij})^2}{2(\sigma_{ij})^2}}
-\]
-In order to train Gaussian Naive Bayes, we need to approximate $P(Y=y_i)$ as well as $\mu_{ij}$ and  $\sigma_{ij}$ for $i$ ranging from $1$ to $n$ (number of training examples) and $j$ ranging from $1$ to $m$ (number of features). 
-\[
-\hat{\mu}_{i'j'} = \frac{\sum_{i=1}^n x_{ij'} \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})}
-\]
-\[
-\hat{\sigma}_{i'j'} =  \frac{\sum_{i=1}^n ( x_{ij'}-\hat{\mu}_{i'j'})^2 \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})}
-\]
+\begin{equation}
+P(X_j=x_j | Y = y_i) =  f (x_j, \mu_{ij}, \sigma_{ij} ) =\frac{1}{\sigma_{ij}\sqrt{2\pi}}e^{-\frac{(x-\mu_{ij})^2}{2(\sigma_{ij})^2}} \label{eq:pdf}
+\end{equation}
+In order to train Gaussian Naive Bayes, we need to approximate $P(Y=y_{i'})$ as well as $\mu_{i'j'}$ and  $\sigma_{i'j'}^2$ for $y_{i'}$ over all labels ($0$ to $9$) and $j'$ ranging from $1$ to $m$ (number of features). 
+\begin{equation}
+\hat{\mu}_{i'j'} = \frac{\sum_{i=1}^n x_{ij'} \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})} \label{eq:mean}
+\end{equation}
+\begin{equation}
+\hat{\sigma}_{i'j'}^2 =  \frac{\sum_{i=1}^n ( x_{ij'}-\hat{\mu}_{i'j'})^2 \delta(y_{i}, y_{i'})}{\sum_{i=1}^n \delta(y_{i}, y_{i'})} \label{eq:var}
+\end{equation}
 where $\delta$ is the Kronecker's delta. It is equal to $1$ if two variables are the same and $0$ otherwise. $x_{ij}$ denotes the $j$th feature in the $i$th  example.
 
 
 Once we finish estimation of parameters, we use the following equation to predict labels for a given instance $x_1 \cdots x_m$. 
-\[
-\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )
-\]
+\begin{equation}
+\hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} ) \label{eq: argmax}
+\end{equation}
 where $f$ denotes the pdf of the normal distribution.
 
 
@@ -245,9 +243,12 @@ Write something about Linear SVM algorithm
 Write something about XXX algorithm
 
 \subsection{Optimization}
-Only certain algorithms require optimization. For example, we need to maximize the log likelihood in Naive Bayes. 
+Some algorithms involve maximization or minimization processes. For example, we need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$ in Naive Bayes. Since the log function is monotonically increasing, it preserves the maximum. Hence, we can maximize the log likelihood as shown in equation (\ref{eq:log}) instead of the original equation (\ref{eq: argmax}) :
+\begin{equation}
+\arg \max_{y_i} \log P(Y = y_i) + \sum_{j=1}^m \log f (x_j, \mu_{ij}, \sigma_{ij} ) \label{eq:log}
+\end{equation}
+In Neural Network, ... . In linear SVM, ... . In XXX, ... .
 
-Write what you need to optimize and how you optimize it if your algorithm requires optimization.
 
 
 
@@ -256,7 +257,7 @@ Write what you need to optimize and how you optimize it if your algorithm requir
 
 
 %-------------------------------------- Testing and Validation --------------------------------------%
-\section{Testing and Validation Results}
+\section{Testing and Validation}
 In this section, we present detailed experimental results, most of them in terms of graphs. We also evaluate the performance of four algorithms and provide analysis on merits and defects of each of the four algorithms. Our analysis concentrate on hyper-parameter selection and testing and validation results.
 
 \subsection{Parameter Selection}
@@ -280,7 +281,12 @@ Write something about what are important parameters in XXX and how you train the
 with more graphs, probably confusion matrices, roc curves.
 
 \subsubsection{Baseline: Naive Bayes}
-results of NB
+\begin{figure} 
+\center
+\includegraphics[width=0.9\columnwidth]{graphs/gnb_cm1.png}  \label{fig:gnb_cm}
+\caption{Normalized confusion matrix for Gaussian Naive Bayes with train set size = 40,000 and test set size = 10,000}
+\end{figure}
+
 
 \subsubsection{Neural Net}
 results of NN
