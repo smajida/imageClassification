@@ -297,8 +297,14 @@ Write something about what are important parameters in SVM and how you train the
 
 \subsubsection{Convolutional Neural Networks}
 Considering the massive amount of time that is required to train ConvNets, 5-fold validation error was not always considered when choosing hyperparameters. Instead, we relied on a 4:1 split of the dataset. \\
-We first tried using two convolutional layers, but quickly realised that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best.\\
-
+We first tried using two convolutional layers, but quickly realised that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best. Similarly we used small filter sizes it gave the best early results. \\
+As such, we did not do proper hyperparameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.
+\begin{figure} 
+\centering
+\includegraphics[width=0.9\columnwidth]{graphs/conv_train.png}  
+\caption{Validation error rate of different ConvNet model sizes during training}
+\label{fig:conv_train}
+\end{figure}
 
 \subsection{Testing Results Analysis}
 We provide further analysis on testing and validation results with help of figures and confusion matrices. We still divide the analysis into four parts based on four algorithms.
