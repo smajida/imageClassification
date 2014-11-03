@@ -4,7 +4,7 @@
 \BOOKMARK [2][-]{subsection.3.1}{Data Preprocessing Methods}{section.3}% 4
 \BOOKMARK [2][-]{subsection.3.2}{Feature Design and Selection}{section.3}% 5
 \BOOKMARK [2][-]{subsection.3.3}{Algorithm Selection}{section.3}% 6
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Baseline: Naive Bayes}{subsection.3.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Baseline: Gaussian Naive Bayes}{subsection.3.3}% 7
 \BOOKMARK [3][-]{subsubsection.3.3.2}{Neural Net}{subsection.3.3}% 8
 \BOOKMARK [3][-]{subsubsection.3.3.3}{Linear SVM }{subsection.3.3}% 9
 \BOOKMARK [3][-]{subsubsection.3.3.4}{Open: XXX}{subsection.3.3}% 10
