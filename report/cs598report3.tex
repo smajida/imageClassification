@@ -249,13 +249,13 @@ where $f$ denotes the pdf of the normal distribution.
 \subsubsection{Multilayer Perceptron}
 An MLP is a feedforward neural network consisting of multiple layers of nodes in a directed graph, with each layer fully connected to the next one. Except for the input nodes, each node is a neuron with a nonlinear activation function. We may view it as a logistic regression classifier and the input data is projected into a hidden layer where it becomes linear separable. In our implementation, all hidden layers use tanh as the activation function, since it typically leads to faster training and even better local minima; and the output layer uses sigmoid, since it is a probability classifier.
 
-We train all MLP using backpropagation by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
+We train all MLP using back-propagation by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
 
 We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01,0.02, ...,0.05. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100],[1000],[500,200],[1000,500,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
  
 \subsubsection{Linear Support Vector Machine }
 
-
+A SVM constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
 
 \subsubsection{Convolutional Neural Network}
 Write something about XXX algorithm

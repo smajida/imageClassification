@@ -2,6 +2,8 @@ import time
 import numpy as np
 import scipy.misc
 
+import cPickle as pickle
+
 import theano
 import theano.tensor as T
 from theano.tensor.nnet import conv
@@ -109,8 +111,17 @@ class ConvNet:
                                      updates=updates)
         self.evaluate = theano.function([x],
                                         o)
-        
-    def fit(self,data, step_test, testfunc, nepochs=800, tau = 70):
+        self.params = params
+        self.lastepoch = 0
+
+    def export_weights(self):
+        return {'W':[i.get_value() for i in self.params],'epoch':self.lastepoch}
+    def import_weights(self, ws):
+        for i,p in zip(ws['W'],self.params):
+            p.set_value(i)
+        self.lastepoch = ws['epoch']
+
+    def fit(self,data, step_test, testfunc, nepochs=1000, tau = 250):
         X, Y = data
         lr = 0.1
 
@@ -123,8 +134,10 @@ class ConvNet:
                 i.reshape((48,48)),np.random.uniform(0,360)).flatten() for i in X])
 
         range_len_X = range(len(X))
+        start = self.lastepoch
         # train for a while
-        for i in range(nepochs):
+        for i in range(start, nepochs):
+            self.lastepoch = i
             c = 0
             t0 = time.time()
             for batch in range(nbatches):
@@ -205,6 +218,12 @@ def main():
 
 
 def main_test():
+
+
+    filters = [40,100,150]
+    sizes = [7,5,5]
+    hidden = 200
+
     n_folds = 5
     
     all_X = np.float32(np.load('train_inputs.npy') / 255.)
@@ -222,7 +241,19 @@ def main_test():
         print trainX.shape,trainY.shape,testX.shape,testY.shape
         
 
-        net = ConvNet()
+        net = ConvNet(nfilters=filters,
+                      sizeA=sizes[0],
+                      sizeB=sizes[1],
+                      sizeC=sizes[2],
+                      nhidden=hidden)
+        exp_path = "%d_%d_%d_%d%d%d_%d"%tuple(filters+sizes+[hidden])
+        try:
+            ws = pickle.load(file('%s_weights.pkl'%exp_path,'r'))
+            net.import_weights(ws)
+            print "Imported weights"
+        except IOError:
+            pass
+        print exp_path
         best_err = [1]
         def showerr(epoch):
             q = (net.test([trainX,trainY]), net.test([testX, testY]), net.test_rot([testX, testY]))
@@ -231,10 +262,13 @@ def main_test():
             if q[2][1] < best_err[0]:
                 best_err[0] = q[2][1]
                 y = net.eval_rot(test_X)
-                f = file('test_output_40_40_200_755_100_%dep_%.4f.csv'%(epoch,100*best_err[0]),'w')
+                f = file('test_output_%s_%dep_%.4f.csv'%(exp_path,epoch,100*best_err[0]),'w')
                 f.write("Id,Prediction\n")
                 for i,p in enumerate(y):
                     f.write("%d,%d\n"%(i+1,np.argmax(p)))
+                f.close()
+                f = file('%s_weights.pkl'%exp_path,'w')
+                pickle.dump(net.export_weights(), f)
                 f.close()
         net.fit([trainX,trainY], 10, showerr)
         print "End of train for fold",k
