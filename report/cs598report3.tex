@@ -264,7 +264,14 @@ In this section, we present detailed experimental results, most of them in terms
 We first embark upon an analysis on the relation between hyper-parameters and algorithm performance.
  
 \subsubsection{Baseline: Naive Bayes}
-Write something about what are important parameters in NB and how you train them, with graphs showing how accuracy varies as these parameters vary
+Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessarily need to include Laplace smoothing. Instead, we show how accuracy varies as we alter the norm parameter in normalization preprocessing process. When we normalized data, we tried both $L1$ and $L2$ norm.  As presented in  Figure \ref{fig:gnbparam}, Gaussian Naive Bayes together with the normalization preprocessing method (with $L2$ norm) brings out the most satisfactory results.   In particular, we also compare the performance of Gaussian Naive Bayes with other Naive Bayes algorithm (multinomial Naive Bayes) to  observe how normalization affects the prediction accuracy. Gaussian Naive Bayes in general outperforms Multinomial Naive Bayes. More interestingly,  while Multinomial Naive Bayes performs worse on the normalized data (especially $L1$),  Gaussian Naive Bayes produces higher prediction accuracy as we further processed the data (from no normalization to $L1$, and from $L1$ to $L2$).
+\begin{figure} 
+\centering
+\includegraphics[width=0.9\columnwidth]{graphs/gnb_param.png}  
+\caption{Accuracy versus different Naive Bayes using the original data, $L1$-normalized data, and $L2$-normalized data (train set size = 40,000 and test set size = 10,000)}
+\label{fig:gnbparam}
+\end{figure}
+
 
 \subsubsection{Neural Net}
 Write something about what are important parameters in NN and how you train them, with graphs showing how accuracy varies as these parameters vary
@@ -278,13 +285,15 @@ Write something about what are important parameters in XXX and how you train the
 
 
 \subsection{Testing Results Analysis}
-with more graphs, probably confusion matrices, roc curves.
+We provide further analysis on testing and validation results with help of figures and confusion matrices. We still divide the analysis into four parts based on four algorithms.
 
 \subsubsection{Baseline: Naive Bayes}
+We also present the confusion matrix corresponding to the Gaussian Naive Bayes algorithm running with 5-fold cross validation on $L2$ normalized data in Figure \ref{fig:gnb_cm}. We normalized the row vectors of the confusion matrix so that we could make fair comparison among different classes. As can be seen from the normalized confusion matrix, the GNB classifier is capable of distinguish $0$ and $1$ from the others, but it performs relatively poor when classifying $2$ to $7$. Its comparatively promising performance on classifying $0$ may be due to the fact that the digit $0$ is least susceptible to all artificial alterations imposed on the original MNIST dataset (especially rotation).
 \begin{figure} 
-\center
-\includegraphics[width=0.9\columnwidth]{graphs/gnb_cm1.png}  \label{fig:gnb_cm}
+\centering
+\includegraphics[width=0.9\columnwidth]{graphs/gnb_cm1.png}  
 \caption{Normalized confusion matrix for Gaussian Naive Bayes with train set size = 40,000 and test set size = 10,000}
+\label{fig:gnb_cm}
 \end{figure}
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  2 NOV 2014 22:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  3 NOV 2014 00:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -428,42 +428,55 @@ Overfull \hbox (11.22758pt too wide) in paragraph at lines 209--209
 [] 
  []
 
-<graphs/gnb_cm1.png, id=127, 604.2575pt x 549.05125pt>
+<graphs/gnb_param.png, id=128, 611.28375pt x 388.45125pt>
+File: graphs/gnb_param.png Graphic file (type png)
+
+<use graphs/gnb_param.png>
+Package pdftex.def Info: graphs/gnb_param.png used on input line 270.
+(pdftex.def)             Requested size: 215.99854pt x 137.25804pt.
+
+Overfull \hbox (9.20473pt too wide) in paragraph at lines 267--274
+\T1/aer/m/n/9 norm pa-ram-e-ter in nor-mal-iza-tion pre-pro-cess-ing pro-cess. 
+When
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.287 \subsection{Testing Results Analysis}
+                                            [2]
+<graphs/gnb_cm1.png, id=151, 604.2575pt x 549.05125pt>
 File: graphs/gnb_cm1.png Graphic file (type png)
 
 <use graphs/gnb_cm1.png>
-Package pdftex.def Info: graphs/gnb_cm1.png used on input line 286.
+Package pdftex.def Info: graphs/gnb_cm1.png used on input line 294.
 (pdftex.def)             Requested size: 215.99854pt x 196.2592pt.
+ (./cs598report3.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 319.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.306 W
-       e	hereby	state	that	all	the	work	 presented	in	this	report	is	that	of...
-[2] (./cs598report3.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 310.
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.310 \end{document}
-                     [3 <./graphs/gnb_cm1.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 310.
- (./cs598report3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 310.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 310.
+l.319 \end{document}
+                     [3 <./graphs/gnb_param.png> <./graphs/gnb_cm1.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 319.
+
+(./cs598report3.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 319.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 319.
 Package rerunfilecheck Info: File `cs598report3.out' has not changed.
 (rerunfilecheck)             Checksum: 8B5EE39AE9772FAC7D541B011339EA0E;1546.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 310.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 319.
  ) 
 Here is how much of TeX's memory you used:
- 6464 strings out of 493315
- 91893 string characters out of 6137904
- 183841 words of memory out of 5000000
- 9762 multiletter control sequences out of 15000+600000
+ 6471 strings out of 493315
+ 92027 string characters out of 6137904
+ 184097 words of memory out of 5000000
+ 9767 multiletter control sequences out of 15000+600000
  53087 words of font info for 70 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 41i,11n,29p,624b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,11n,29p,1021b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/tex
 live/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/
@@ -482,10 +495,10 @@ onts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw
 /times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utm
 ri8a.pfb>
-Output written on cs598report3.pdf (3 pages, 339758 bytes).
+Output written on cs598report3.pdf (3 pages, 372956 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 202 compressed objects within 3 object streams
- 41 named destinations out of 1000 (max. 500000)
- 190 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 232 PDF objects out of 1000 (max. 8388607)
+ 205 compressed objects within 3 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 195 words of extra memory for PDF output out of 10000 (max. 10000000)
 
