@@ -48,7 +48,7 @@
 }
 \subtitle{[Team Y.E.S.: COMP 598 Group Project 3]
 \titlenote{
-Implementation of the algorithm described in this report is available at
+The dataset and the implementation of the algorithm described in this report is available at
 \url{https://github.com/yutingyw/imageClassification}}}
 %
 % You need the command \numberofauthors to handle the 'placement
@@ -92,19 +92,19 @@ Implementation of the algorithm described in this report is available at
 %
 % 1st. author
 \alignauthor
-Emmanuel Bengio\\
+ Emmanuel Bengio\\
   \affaddr{McGill University}\\
        %\affaddr{1932 Wallamaloo Lane}\\
       % \affaddr{Wallamaloo, New Zealand}\\
-       \email{emmanuel.bengio@mail.mcgill.ca}
+       \email{emmanuel.bengio@mail.mcgill.ca}           
 % 2nd. author
 \alignauthor
 Yuting Wen \\
  \affaddr{McGill University}\\
       % \affaddr{P.O. Box 1212}\\
       % \affaddr{Dublin, Ohio 43017-6221}\\
-       \email{yuting.wen@mail.mcgill.ca}           
-% 3rd. author
+       \email{yuting.wen@mail.mcgill.ca} 
+ % 3rd. author
 \alignauthor Sherry  Ruan\\
        \affaddr{McGill University}\\
       % \affaddr{1 Th{\o}rv{\"a}ld Circle}\\
@@ -137,7 +137,7 @@ Yuting Wen \\
 %\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
 %email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 %(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{3 November 2014}
+\date{30 July 1999}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
@@ -163,11 +163,11 @@ The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchst
 
 The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
-We decided to apply five different algorithms: Gaussian Naive Bayes (GNB),  Multilayer Perceptron (MLP), Linear Support Vector Machine (LSVM), Convolutional Neural Network (CNN), and Generative Stochastic Network (GSN) to the modified MNIST dataset. For the baseline algorithm, we chose GNB since features given as float numbers are continuous. For MLP, we cross-validate over different learning rates, numbers of hidden layers and units. For LSVM, ...... For CNN, ...... For GSN, we use both supervised and unsupervised versions with and without walkback. (one or two sentences summarizing each algorithm)
+We decided to apply five different algorithms: Gaussian Naive Bayes (GNB), Multilayer Perceptron (MLP), Linear Support Vector Machine (LSVM), Deep Convolutional Neural Network (CNN), and Generative Stochastic Network (GSN) to the modified MNIST dataset. For the baseline algorithm, we chose GNB since features given as float numbers are continuous. For MLP, we cross-validate over different learning rates, numbers of hidden layers and units. For LSVM, ...... For ConvNets we applied many layers of convolution with $tanh$ units, followed by a single hidden layer and a softmax prediction layer. For GSN, we use both supervised and unsupervised versions with and without walkback. (one or two sentences summarizing each algorithm)
 
-The performance of algorithms varies widely. The base line algorithm GNB provides around $40\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. MLP could be pushed up to $87\%$ accuracy. SVM..... CNN..... As a second generative model besides GNB, GSN provides around $50\%$ accuracy with a supervised version. (one or two sentences summarizing the performance)
+The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... ConvNets seem to be the best suited models for this task, as we acheive around 93.6$\%$ validation accuracy, and 94.05$\%$ accuracy on the public test set. As a second generative model besides GNB, GSN provides around 50$\%$ accuracy with a supervised version.
 
-Our empirical results, though preliminary, provide considerably accurate predictions especially CNN for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
+Our empirical results, though preliminary, provide considerably accurate predictions (especially Convolutional Neural Networks) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
 
 
 
@@ -191,26 +191,23 @@ In Naive Bayes, we adopted normalization to  make it suitable for the algorithm.
 
 Data preprocessing in neural networks. 
 
-Data preprocessing in LSVM.
+Data preprocessing in linear SVM.
 
-Data preprocessing in CNN.
+To train convolutional neural nets, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits indenpendently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
 
-For GSN, all layers have pre-activation Gaussian noise with standard deviation $0.5$. The first layer has post-activation salt-and-pepper noise of $30%$ (i.e., $30%$ of the pixels are corrupted and replaced with a 0 or a 1 with equal probability), and the last layer has post-activation Gaussian noise with $0.5$ standard deviation. The Gaussian injected noise is essential for the model itself but we keep it relatively small since the modified MNIST is already noisy.  
+For GSN, all layers have pre-activation Gaussian noise with standard deviation $0.5$. The first layer has post-activation salt-and-pepper noise of $30%$ (i.e., $30%$ of the pixels are corrupted and replaced with a 0 or a 1 with equal probability), and the last layer has post-activation Gaussian noise with $0.5$ standard deviation. The Gaussian injected noise is essential for the model itself but we keep it relatively small since the modified MNIST is already noisy. 
 
 \subsection{Feature Design and Selection}
-
 The CNN model already gives us a good result without feature design and selection, but to see how much Principle Component Analysis (PCA) could help in this case, we leverage to sklearn library to do linear dimensionality reduction on the original feature set. In particular, we use Singular Value Decomposition and keep only the most significant singular vectors to project the data to a lower dimensional space while preserving most of the explained variance at the same time. The new dimension is chosen via Maximum Likelihood Estimation method.
 
 
+I think this refers to people that use things like Gabor filter extraction and similar, personnally I didn't use anything like that.
 
 
-
-(maybe talk about max-pooling for CNN?)
-
-
-
+ (maybe talk about max-pooling for cnn?)
+ 
 \subsection{Algorithm Selection}
-The following is a brief summary of central ideas for each algorithm.
+We chose Gaussian Naive Bayes as the baseline algorithm, Multilayer Perceptron, Linear Support Vector Machine as required algorithms, together with Convolutional Neural Networks and Generative Stochastic Neural Network as the optional algorithms. The following is a brief summary of central ideas for each algorithm.
 
 \subsubsection{Baseline: Gaussian Naive Bayes}
 Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
@@ -252,9 +249,8 @@ An MLP is a feedforward neural network consisting of multiple layers of nodes in
 We train all MLP using back-propagation by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
 
 We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01,0.02, ...,0.05. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100],[1000],[500,200],[1000,500,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
- 
-\subsubsection{Linear Support Vector Machine }
 
+\subsubsection{Linear Support Vector Machine }
 A SVM constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
 
 Given training set $x_i\in R^p,i=1,...,n$, in two classes, and a target vector $y\in R^n$ with $y_i\in \{1,-1\}$, SVM sovles the following primal problem:
@@ -275,11 +271,18 @@ Its dual is
 where $e$ is the vector of all ones, $C>0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij}=K(x_i,x_j)$ and $\phi(x_i)^T\phi(x)$ is the kernel. The decision function is $sgn(\sum_{i=1}^n y_i\alpha_i K(x_i,x)+\rho)$.
 
 
-\subsubsection{Convolutional Neural Network}
-Write something about XXX algorithm
-
+\subsubsection{Convolutional Neural Networks}
+Convolutional Neural Networks apply the idea of signal convolution to neural networks. The key idea is that groups of neurons, filters, are applied locally on subregions of the images instead of the whole image \cite{726791}. These filters are then convolved on input images, thus creating new images, or feature maps.\\
+The original input image is considered as a single feature map, $f(x,y)$. Generally the input to a convolutional layer is a set of $n_f$ feature maps, $f_i(x,y)$, on which the $n_j$ filters of size $(p\times q)$ $g_k(x,y)$ (also usually represented as a 4d-tensor $W$ of weights) are convolved, thus creating $n_g$ new feature maps $h_j(x,y)$:
+$$ h_j(x,y) = \sum_{u=0}^p\sum_{v=0}^q\sum_{i=0}^{n_f} f_i(x+u,y+v)g_j(u,v) $$
+A bias is then added on each individual filter map, which is then bounded by an activation function (here we used the hyperbolic tangent $tanh$). We get that the output of a layer in terms of feature maps is 
+$$H_i(x,y) = \tanh(h_i(x,y) + b_i) = \tanh(W\ast x + b) $$
+Finally, maxpooling is applied to the filter maps, where each $(s \times t)$ blocks of the maps are reduced to their maximum value. For $s=t=2$, it is essentially scaling the image down by a factor two, but keeping the max instead of taking, say, the average value. This gives the model some level of translation invariance, on top of the ability to detect highly local features.\\
+After having created a feature map representation of the input, we flatten the last feature maps to vector form, and feed it to a two layer feedforward neural network, with a $tanh$ hidden layer and a softmax output layer. The softmax function is as follows:
+$$ s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
 
 \subsubsection{Generative Stochastic Network}
+
 
 
 \subsection{Optimization}
@@ -290,6 +293,10 @@ Some algorithms involve maximization or minimization processes. For example, we 
 In Neural Network, ... . In linear SVM, ... . In XXX, ... .
 
 
+\subsubsection{Convolutional Neural Network}
+We train our convolutional models similarly to feedforward neural networks, using gradient descent with weight regularization.\\
+What is added, as mentioned in the methodology section, is that we train our models on randomly rotated examples generated online from the training data.
+On top of that, we use our prior knowledge of the task to perform some kind of bagging. What we are doing is not bagging different models with the same input, but rather ``bagging'' the same convolutional model with different inputs, where each of these inputs is in fact the original input with a different rotation. This takes advantage of the fact that the original data is created using random rotations of the source images, and recudes the error significantly.
 
 
 
@@ -313,16 +320,22 @@ Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessa
 \end{figure}
 
 
-\subsubsection{Neural Net}
+\subsubsection{Multilayer Perceptron}
 Write something about what are important parameters in NN and how you train them, with graphs showing how accuracy varies as these parameters vary
 
-\subsubsection{Linear SVM }
+\subsubsection{Linear Support Vector Machine }
 Write something about what are important parameters in SVM and how you train them, with graphs showing how accuracy varies as these parameters vary
 
-\subsubsection{Open: XXX}
-Write something about what are important parameters in XXX and how you train them, with graphs showing how accuracy varies as these parameters vary
-
-
+\subsubsection{Convolutional Neural Network}
+Considering the massive amount of time that is required to train ConvNets, 5-fold validation error was not always considered when choosing hyperparameters. Instead, we relied on a 4:1 split of the dataset. \\
+We first tried using two convolutional layers, but quickly realised that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best. Similarly we used small filter sizes it gave the best early results. \\
+As such, we did not do proper hyperparameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.
+\begin{figure} 
+\centering
+\includegraphics[width=0.9\columnwidth]{graphs/conv_train.png}  
+\caption{Validation error rate of different ConvNet model sizes during training}
+\label{fig:conv_train}
+\end{figure}
 
 \subsection{Testing Results Analysis}
 We provide further analysis on testing and validation results with help of figures and confusion matrices. We still divide the analysis into four parts based on four algorithms.
@@ -337,14 +350,14 @@ We also present the confusion matrix corresponding to the Gaussian Naive Bayes a
 \end{figure}
 
 
-\subsubsection{Neural Net}
+\subsubsection{Multilayer Perceptron}
 results of NN
 
-\subsubsection{Linear SVM }
+\subsubsection{Linear Support Vector Machine }
 results of SVM
 
-\subsubsection{Open: XXX}
-results of XXX 
+\subsubsection{Convolutional Neural Network}
+
 
 
 
