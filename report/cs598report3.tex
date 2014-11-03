@@ -48,7 +48,7 @@
 }
 \subtitle{[Team Y.E.S.: COMP 598 Group Project 3]
 \titlenote{
-The dataset and the implementation of the algorithm described in this report is available at
+Implementation of the algorithm described in this report is available at
 \url{https://github.com/yutingyw/imageClassification}}}
 %
 % You need the command \numberofauthors to handle the 'placement
@@ -92,18 +92,18 @@ The dataset and the implementation of the algorithm described in this report is 
 %
 % 1st. author
 \alignauthor
-Yuting Wen \\
- \affaddr{McGill University}\\
-      % \affaddr{P.O. Box 1212}\\
-      % \affaddr{Dublin, Ohio 43017-6221}\\
-       \email{yuting.wen@mail.mcgill.ca}     
-% 2nd. author
-\alignauthor
 Emmanuel Bengio\\
   \affaddr{McGill University}\\
        %\affaddr{1932 Wallamaloo Lane}\\
       % \affaddr{Wallamaloo, New Zealand}\\
-       \email{emmanuel.bengio@mail.mcgill.ca}        
+       \email{emmanuel.bengio@mail.mcgill.ca}
+% 2nd. author
+\alignauthor
+Yuting Wen \\
+ \affaddr{McGill University}\\
+      % \affaddr{P.O. Box 1212}\\
+      % \affaddr{Dublin, Ohio 43017-6221}\\
+       \email{yuting.wen@mail.mcgill.ca}           
 % 3rd. author
 \alignauthor Sherry  Ruan\\
        \affaddr{McGill University}\\
@@ -137,14 +137,14 @@ Emmanuel Bengio\\
 %\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
 %email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 %(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
+\date{3 November 2014}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
 
 \maketitle
 \begin{abstract}
-In this project, we aim at classify a much more difficult variation of the MNIST dataset of handwritten digits. We adopt feature selection and construction techniques together with four main machine learning algorithms: Gaussian Naive Bayes, fully connected Feedforward Neural Network, Linear Support Vector Machine, and XXX (name of the 4th algorithm here). We analyze and assess the parameter selection process and the performance of each algorithm. We conclude the report with discussion and suggestions for further improvement.
+In this project, we aim at classify a much more difficult variation of the MNIST dataset of handwritten digits. We adopt feature selection and construction techniques together with five main machine learning algorithms: Gaussian Naive Bayes, Multilayer Perceptron, Linear Support Vector Machine, Convolutional Neural Network, and Generative Stochastic Network. We analyze and assess the parameter selection process and the performance of each algorithm. We conclude the report with discussion and suggestions for further improvement.
 \end{abstract}
 
 %% A category with the (minimum) three required fields
@@ -163,11 +163,11 @@ The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchst
 
 The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
-We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. For the baseline algorithm, we chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks,......  For Linear SVM, ......  For XXX, ...... (one or two sentences summarizing each algorithm)
+We decided to apply five different algorithms: Gaussian Naive Bayes (GNB),  Multilayer Perceptron (MLP), Linear Support Vector Machine (LSVM), Convolutional Neural Network (CNN), and Generative Stochastic Network (GSN) to the modified MNIST dataset. For the baseline algorithm, we chose GNB since features given as float numbers are continuous. For MLP, we cross-validate over different learning rates, numbers of hidden layers and units. For LSVM, ...... For CNN, ...... For GSN, we use both supervised and unsupervised versions with and without walkback. (one or two sentences summarizing each algorithm)
 
-The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... XXX..... (one or two sentences summarizing the performance)
+The performance of algorithms varies widely. The base line algorithm GNB provides around $40\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. MLP could be pushed up to $87\%$ accuracy. SVM..... CNN..... As a second generative model besides GNB, GSN provides around $50\%$ accuracy with a supervised version. (one or two sentences summarizing the performance)
 
-Our empirical results, though preliminary, provide considerably accurate predictions (especially XXX) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
+Our empirical results, though preliminary, provide considerably accurate predictions especially CNN for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
 
 
 
@@ -191,15 +191,26 @@ In Naive Bayes, we adopted normalization to  make it suitable for the algorithm.
 
 Data preprocessing in neural networks. 
 
-Data preprocessing in linear SVM.
+Data preprocessing in LSVM.
 
-Data preprocessing in XXX.
+Data preprocessing in CNN.
+
+For GSN, all layers have pre-activation Gaussian noise with standard deviation $0.5$. The first layer has post-activation salt-and-pepper noise of $30%$ (i.e., $30%$ of the pixels are corrupted and replaced with a 0 or a 1 with equal probability), and the last layer has post-activation Gaussian noise with $0.5$ standard deviation. The Gaussian injected noise is essential for the model itself but we keep it relatively small since the modified MNIST is already noisy.  
 
 \subsection{Feature Design and Selection}
-I'm not sure what exactly feature design and selection are. Need more thought on this part.
+
+The CNN model already gives us a good result without feature design and selection, but to see how much Principle Component Analysis (PCA) could help in this case, we leverage to sklearn library to do linear dimensionality reduction on the original feature set. In particular, we use Singular Value Decomposition and keep only the most significant singular vectors to project the data to a lower dimensional space while preserving most of the explained variance at the same time. The new dimension is chosen via Maximum Likelihood Estimation method.
+
+
+
+
+
+(maybe talk about max-pooling for CNN?)
+
+
 
 \subsection{Algorithm Selection}
-We chose Gaussian Naive Bayes as the baseline algorithm, fully connected feedforward neural networks, linear support vector machine as required algorithms, together with XXX as the fourth optional algorithm. The following is a brief summary of central ideas of each algorithm.
+The following is a brief summary of central ideas for each algorithm.
 
 \subsubsection{Baseline: Gaussian Naive Bayes}
 Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
@@ -235,14 +246,23 @@ where $f$ denotes the pdf of the normal distribution.
 
 
 
-\subsubsection{Neural Net}
-Write something about Neural Net algorithm
+\subsubsection{Multilayer Perceptron}
+An MLP is a feedforward neural network consisting of multiple layers of nodes in a directed graph, with each layer fully connected to the next one. Except for the input nodes, each node is a neuron with a nonlinear activation function. We may view it as a logistic regression classifier and the input data is projected into a hidden layer where it becomes linear separable. In our implementation, all hidden layers use tanh as the activation function, since it typically leads to faster training and even better local minima; and the output layer uses sigmoid, since it is a probability classifier.
 
-\subsubsection{Linear SVM }
-Write something about Linear SVM algorithm
+We train all MLP using backpropagation by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
 
-\subsubsection{Open: XXX}
+We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01,0.02, ...,0.05. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100],[1000],[500,200],[1000,500,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
+ 
+\subsubsection{Linear Support Vector Machine }
+
+
+
+\subsubsection{Convolutional Neural Network}
 Write something about XXX algorithm
+
+
+\subsubsection{Generative Stochastic Network}
+
 
 \subsection{Optimization}
 Some algorithms involve maximization or minimization processes. For example, we need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$ in Naive Bayes. Since the log function is monotonically increasing, it preserves the maximum. Hence, we can maximize the log likelihood as shown in equation (\ref{eq:log}) instead of the original equation (\ref{eq: argmax}) :

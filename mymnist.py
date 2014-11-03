@@ -1,5 +1,4 @@
 # Loading transformed MNIST
-# Author: Yuting Wen
 
 import os
 import numpy as np

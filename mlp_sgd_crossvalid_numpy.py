@@ -1,5 +1,4 @@
 # Implementation of MLP using SGD and cross-validation
-# Author: Yuting Wen
 
 import csv
 import numpy as np
