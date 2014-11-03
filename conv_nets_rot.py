@@ -121,7 +121,7 @@ class ConvNet:
             p.set_value(i)
         self.lastepoch = ws['epoch']
 
-    def fit(self,data, step_test, testfunc, nepochs=800, tau = 70):
+    def fit(self,data, step_test, testfunc, nepochs=1000, tau = 250):
         X, Y = data
         lr = 0.1
 
@@ -220,9 +220,9 @@ def main():
 def main_test():
 
 
-    filters = [10,100,200]
+    filters = [40,100,150]
     sizes = [7,5,5]
-    hidden = 100
+    hidden = 200
 
     n_folds = 5
     
@@ -267,7 +267,7 @@ def main_test():
                 for i,p in enumerate(y):
                     f.write("%d,%d\n"%(i+1,np.argmax(p)))
                 f.close()
-                f = file('%s_weights_2.pkl'%exp_path,'w')
+                f = file('%s_weights.pkl'%exp_path,'w')
                 pickle.dump(net.export_weights(), f)
                 f.close()
         net.fit([trainX,trainY], 10, showerr)

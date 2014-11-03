@@ -163,11 +163,13 @@ The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchst
 
 The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
-We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and XXX to the modified MNIST dataset. For the baseline algorithm, we chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks,......  For Linear SVM, ......  For XXX, ...... (one or two sentences summarizing each algorithm)
+We decided to apply four different algorithms: Naive Bayes, Feedforward Neural Networks, Linear Support Vector Machine, and Deep Convolutional Neural Networks to the modified MNIST dataset. For the baseline algorithm, we chose Gaussian Naive Bayes since features given as float numbers are continuous.  For Neural Networks,......  For Linear SVM, ......  For ConvNets we applied many layers of convolution with $tanh$ units, followed by a single hidden layer and a softmax prediction layer.
+% , ...... (one or two sentences summarizing each algorithm)
 
-The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... XXX..... (one or two sentences summarizing the performance)
+The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... ConvNets seem to be the best suited models for this task, as we acheive around 93.6$\%$ validation accuracy, and 94.05$\%$ accuracy on the public test set.
+%..... (one or two sentences summarizing the performance)
 
-Our empirical results, though preliminary, provide considerably accurate predictions (especially XXX) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
+Our empirical results, though preliminary, provide considerably accurate predictions (especially Convolutional neural networks) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
 
 
 
@@ -193,13 +195,14 @@ Data preprocessing in neural networks.
 
 Data preprocessing in linear SVM.
 
-Data preprocessing in XXX.
+To train convolutional neural nets, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits indenpendently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
 
 \subsection{Feature Design and Selection}
-I'm not sure what exactly feature design and selection are. Need more thought on this part.
+I'm not sure what exactly feature design and selection are. Need more thought on this part.\\
+I think this refers to people that use things like Gabor filter extraction and similar, personnally I didn't use anything like that.
 
 \subsection{Algorithm Selection}
-We chose Gaussian Naive Bayes as the baseline algorithm, fully connected feedforward neural networks, linear support vector machine as required algorithms, together with XXX as the fourth optional algorithm. The following is a brief summary of central ideas of each algorithm.
+We chose Gaussian Naive Bayes as the baseline algorithm, fully connected feedforward neural networks, linear support vector machine as required algorithms, together with Convolutional neural networks as the fourth optional algorithm. The following is a brief summary of central ideas of each algorithm.
 
 \subsubsection{Baseline: Gaussian Naive Bayes}
 Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
@@ -241,8 +244,15 @@ Write something about Neural Net algorithm
 \subsubsection{Linear SVM }
 Write something about Linear SVM algorithm
 
-\subsubsection{Open: XXX}
-Write something about XXX algorithm
+\subsubsection{Convolutional Neural Networks}
+Convolutional Neural Networks apply the idea of signal convolution to neural networks. The key idea is that groups of neurons, filters, are applied locally on subregions of the images instead of the whole image \cite{726791}. These filters are then convolved on input images, thus creating new images, or feature maps.\\
+The original input image is considered as a single feature map, $f(x,y)$. Generally the input to a convolutional layer is a set of $n_f$ feature maps, $f_i(x,y)$, on which the $n_j$ filters of size $(p\times q)$ $g_k(x,y)$ (also usually represented as a 4d-tensor $W$ of weights) are convolved, thus creating $n_g$ new feature maps $h_j(x,y)$:
+$$ h_j(x,y) = \sum_{u=0}^p\sum_{v=0}^q\sum_{i=0}^{n_f} f_i(x+u,y+v)g_j(u,v) $$
+A bias is then added on each individual filter map, which is then bounded by an activation function (here we used the hyperbolic tangent $tanh$). We get that the output of a layer in terms of feature maps is 
+$$H_i(x,y) = \tanh(h_i(x,y) + b_i) = \tanh(W\ast x + b) $$
+Finally, maxpooling is applied to the filter maps, where each $(s \times t)$ blocks of the maps are reduced to their maximum value. For $s=t=2$, it is essentially scaling the image down by a factor two, but keeping the max instead of taking, say, the average value. This gives the model some level of translation invariance, on top of the ability to detect highly local features.\\
+After having created a feature map representation of the input, we flatten the last feature maps to vector form, and feed it to a two layer feedforward neural network, with a $tanh$ hidden layer and a softmax output layer. The softmax function is as follows:
+$$ s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
 
 \subsection{Optimization}
 Some algorithms involve maximization or minimization processes. For example, we need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$ in Naive Bayes. Since the log function is monotonically increasing, it preserves the maximum. Hence, we can maximize the log likelihood as shown in equation (\ref{eq:log}) instead of the original equation (\ref{eq: argmax}) :
@@ -252,6 +262,10 @@ Some algorithms involve maximization or minimization processes. For example, we 
 In Neural Network, ... . In linear SVM, ... . In XXX, ... .
 
 
+\subsubsection{Convolutional Neural Networks}
+We train our convolutional models similarly to feedforward neural networks, using gradient descent with weight regularization.\\
+What is added, as mentioned in the methodology section, is that we train our models on randomly rotated examples generated online from the training data.
+On top of that, we use our prior knowledge of the task to perform some kind of bagging. What we are doing is not bagging different models with the same input, but rather ``bagging'' the same convolutional model with different inputs, where each of these inputs is in fact the original input with a different rotation. This takes advantage of the fact that the original data is created using random rotations of the source images, and recudes the error significantly.
 
 
 
@@ -281,9 +295,9 @@ Write something about what are important parameters in NN and how you train them
 \subsubsection{Linear SVM }
 Write something about what are important parameters in SVM and how you train them, with graphs showing how accuracy varies as these parameters vary
 
-\subsubsection{Open: XXX}
-Write something about what are important parameters in XXX and how you train them, with graphs showing how accuracy varies as these parameters vary
-
+\subsubsection{Convolutional Neural Networks}
+Considering the massive amount of time that is required to train ConvNets, 5-fold validation error was not always considered when choosing hyperparameters. Instead, we relied on a 4:1 split of the dataset. \\
+We first tried using two convolutional layers, but quickly realised that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best.\\
 
 
 \subsection{Testing Results Analysis}
@@ -305,8 +319,8 @@ results of NN
 \subsubsection{Linear SVM }
 results of SVM
 
-\subsubsection{Open: XXX}
-results of XXX 
+\subsubsection{Convolutional Neural Networks}
+
 
 
 
