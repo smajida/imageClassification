@@ -39,6 +39,7 @@
 }
 \usepackage{bbm}
 \usepackage{dsfont}
+\usepackage[font={small,it}]{caption}
 
 \begin{document}
 
@@ -171,8 +172,9 @@ Our empirical results, though preliminary, provide considerably accurate predict
 
 
 
-
-
+%-------------------------------------- Related work --------------------------------------%
+\section{Related Work}
+Optional this time. We can write something here if there's any good related work worth discussing.
 
 
 
@@ -309,7 +311,11 @@ results of XXX
 
 
 \section{Discussion}
-Talk about pros and cons	of	our	approaches and	methodology
+The artificial alteration imposed on the MNIST handwritten digit dataset brings about a great amount of noise and complicates the classification task. Many typical machine learning algorithms are not suitable for this modified dataset anymore. For example, Naive Bayes can only achieve up to  $40 \%$ accuracy, even with Gaussian Naive Bayes and many refined preprocessing methods.  More elaborate feature selection and preprocessing techniques may be capable of improving the prediction accuracy using Naive Bayes, but it appears to us that it is unfeasible to achieve an accuracy as high (above $80 \%$) as other more sophisticated  algorithm in deep learning.
+
+On the other hand, deep learning ......
+
+To summarize, we endeavored to classify the modified handwritten digits using four different algorithms. While some are capable of  achieving surprisingly high accuracy,  some illustrate the limitation of "shallow" algorithms. After all, machine learning problems can never be unraveled using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
 
 
 We	hereby	state	that	all	the	work	 presented	in	this	report	is	that	of	the	authors
