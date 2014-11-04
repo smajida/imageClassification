@@ -173,8 +173,8 @@ Our empirical results, though preliminary, provide considerably accurate predict
 
 
 %-------------------------------------- Related work --------------------------------------%
-\section{Related Work}
-Optional this time. We can write something here if there's any good related work worth discussing.
+%\section{Related Work}
+%Optional this time. We can write something here if there's any good related work worth discussing.
 
 
 
@@ -185,29 +185,26 @@ We present detailed descriptions of our methods featuring data preprocessing, fe
 
 
 \subsection{Data Preprocessing Methods}
-We adopted different data preprocessing methods based on the characteristic of each machine learning algorithm. Since the dataset was given in a relatively organized format (csv files containing float numbers), we spared little effort to format data or extract numerical data from images. Most data proprecessing methods we used were adapted for a specialized algorithm.
+We adopted different data preprocessing methods based on the characteristic of each machine learning algorithm. Since the dataset was given in a relatively organized format (csv files containing float numbers), we spared little effort to format data or extract numerical data from images. Most data preprocessing methods we used were adapted for a specialized algorithm.
 
 In Naive Bayes, we adopted normalization to  make it suitable for the algorithm. We obtained a set of scaled examples of unit norm after the normalization. We chose L2 norm since it resulted in the greatest improvement in terms of accuracy. We will give more details including the graph showing accuracy versus data preprocessing methods in later section (testing and validation).
 
-Data preprocessing in neural networks. 
+We did not use data preprocessing for MLP and LSVM.
 
-Data preprocessing in linear SVM.
+To train CNN, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits indenpendently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
 
-To train convolutional neural nets, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits indenpendently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
-
-For GSN, all layers have pre-activation Gaussian noise with standard deviation $0.5$. The first layer has post-activation salt-and-pepper noise of $30%$ (i.e., $30%$ of the pixels are corrupted and replaced with a 0 or a 1 with equal probability), and the last layer has post-activation Gaussian noise with $0.5$ standard deviation. The Gaussian injected noise is essential for the model itself but we keep it relatively small since the modified MNIST is already noisy. 
+For GSN, all layers have pre-activation Gaussian noise with standard deviation $0.5$. The first layer has post-activation salt-and-pepper noise of $30\%$ (i.e., $30\%$ of the pixels are corrupted and replaced with a 0 or a 1 with equal probability), and the last layer has post-activation Gaussian noise with $0.5$ standard deviation. The Gaussian injected noise is essential for the model itself but we keep it relatively small since the modified MNIST is already noisy. 
 
 \subsection{Feature Design and Selection}
 The CNN model already gives us a good result without feature design and selection, but to see how much Principle Component Analysis (PCA) could help in this case, we leverage to sklearn library to do linear dimensionality reduction on the original feature set. In particular, we use Singular Value Decomposition and keep only the most significant singular vectors to project the data to a lower dimensional space while preserving most of the explained variance at the same time. The new dimension is chosen via Maximum Likelihood Estimation method.
 
+With PCA, the same CNN model achieves 92.63$\%$ accuracy on the public test set, which is not an improvement.
 
-I think this refers to people that use things like Gabor filter extraction and similar, personnally I didn't use anything like that.
+%I think this refers to people that use things like Gabor filter extraction and similar, personnally I didn't use anything like that.
 
-
- (maybe talk about max-pooling for cnn?)
  
 \subsection{Algorithm Selection}
-We chose Gaussian Naive Bayes as the baseline algorithm, Multilayer Perceptron, Linear Support Vector Machine as required algorithms, together with Convolutional Neural Networks and Generative Stochastic Neural Network as the optional algorithms. The following is a brief summary of central ideas for each algorithm.
+We chose Gaussian Naive Bayes as the baseline algorithm, Multilayer Perceptron, Linear Support Vector Machine as required algorithms, together with Convolutional Neural Networks and Generative Stochastic Neural Network as the optional algorithms. The following is a brief summary of central ideas for each algorithm, except for GSN since it is beyond the scope of this course.
 
 \subsubsection{Baseline: Gaussian Naive Bayes}
 Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
@@ -271,7 +268,7 @@ Its dual is
 where $e$ is the vector of all ones, $C>0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij}=K(x_i,x_j)$ and $\phi(x_i)^T\phi(x)$ is the kernel. The decision function is $sgn(\sum_{i=1}^n y_i\alpha_i K(x_i,x)+\rho)$.
 
 
-\subsubsection{Convolutional Neural Networks}
+\subsubsection{Convolutional Neural Network}
 Convolutional Neural Networks apply the idea of signal convolution to neural networks. The key idea is that groups of neurons, filters, are applied locally on subregions of the images instead of the whole image \cite{726791}. These filters are then convolved on input images, thus creating new images, or feature maps.\\
 The original input image is considered as a single feature map, $f(x,y)$. Generally the input to a convolutional layer is a set of $n_f$ feature maps, $f_i(x,y)$, on which the $n_j$ filters of size $(p\times q)$ $g_k(x,y)$ (also usually represented as a 4d-tensor $W$ of weights) are convolved, thus creating $n_g$ new feature maps $h_j(x,y)$:
 $$ h_j(x,y) = \sum_{u=0}^p\sum_{v=0}^q\sum_{i=0}^{n_f} f_i(x+u,y+v)g_j(u,v) $$
@@ -281,22 +278,26 @@ Finally, maxpooling is applied to the filter maps, where each $(s \times t)$ blo
 After having created a feature map representation of the input, we flatten the last feature maps to vector form, and feed it to a two layer feedforward neural network, with a $tanh$ hidden layer and a softmax output layer. The softmax function is as follows:
 $$ s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
 
-\subsubsection{Generative Stochastic Network}
-
-
 
 \subsection{Optimization}
-Some algorithms involve maximization or minimization processes. For example, we need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$ in Naive Bayes. Since the log function is monotonically increasing, it preserves the maximum. Hence, we can maximize the log likelihood as shown in equation (\ref{eq:log}) instead of the original equation (\ref{eq: argmax}) :
+Some algorithms involve maximization or minimization processes. 
+
+
+\subsubsection{Gaussian Naive Bayes}
+We need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$ in Naive Bayes. Since the log function is monotonically increasing, it preserves the maximum. Hence, we can maximize the log likelihood as shown in equation (\ref{eq:log}) instead of the original equation (\ref{eq: argmax}) :
 \begin{equation}
 \arg \max_{y_i} \log P(Y = y_i) + \sum_{j=1}^m \log f (x_j, \mu_{ij}, \sigma_{ij} ) \label{eq:log}
 \end{equation}
 In Neural Network, ... . In linear SVM, ... . In XXX, ... .
 
+\subsubsection{Multilayer Perceptron}
+
+
 
 \subsubsection{Convolutional Neural Network}
-We train our convolutional models similarly to feedforward neural networks, using gradient descent with weight regularization.\\
+We train our CNN models similarly to MLP, using gradient descent with weight regularization.\\
 What is added, as mentioned in the methodology section, is that we train our models on randomly rotated examples generated online from the training data.
-On top of that, we use our prior knowledge of the task to perform some kind of bagging. What we are doing is not bagging different models with the same input, but rather ``bagging'' the same convolutional model with different inputs, where each of these inputs is in fact the original input with a different rotation. This takes advantage of the fact that the original data is created using random rotations of the source images, and recudes the error significantly.
+On top of that, we use our prior knowledge of the task to perform some kind of bagging. What we are doing is not bagging different models with the same input, but rather ``bagging'' the same convolutional model with different inputs, where each of these inputs is in fact the original input with a different rotation. This takes advantage of the fact that the original data is created using random rotations of the source images, and reduces the error significantly.
 
 
 
@@ -366,7 +367,7 @@ The artificial alteration imposed on the MNIST handwritten digit dataset brings 
 
 On the other hand, deep learning ......
 
-To summarize, we endeavored to classify the modified handwritten digits using four different algorithms. While some are capable of  achieving surprisingly high accuracy,  some illustrate the limitation of "shallow" algorithms. After all, machine learning problems can never be unraveled using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
+To summarize, we endeavoured to classify the modified handwritten digits using four different algorithms. While some are capable of  achieving surprisingly high accuracy,  some illustrate the limitation of "shallow" algorithms. After all, machine learning problems can never be unraveled using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
 
 
 We	hereby	state	that	all	the	work	 presented	in	this	report	is	that	of	the	authors

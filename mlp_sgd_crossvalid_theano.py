@@ -1,93 +1,142 @@
 # Implementation of MLP using SGD and cross-validation
 
 import csv
+
+import theano
+from theano import function
+import theano.tensor as T
+
 import numpy as np
 
 rng = np.random.RandomState(201314)
 
-class HiddenLayer(object):
+#theano.config.compute_test_value = 'warn'
+
+# debug functions
+def inspect_inputs(i, node, fn):
+    print i, node, "input(s) value(s):", [input[0] for input in fn.inputs],
+
+def inspect_outputs(i, node, fn):
+    print "output(s) value(s):", [output[0] for output in fn.outputs]
+
+def detect_nan(i, node, fn):
+    for output in fn.outputs:
+        if np.isnan(output[0]).any():
+            print '*** NaN detected ***'
+            theano.printing.debugprint(node)
+            print 'Inputs : %s' % [input[0] for input in fn.inputs]
+            print 'Outputs: %s' % [output[0] for output in fn.outputs]
+            break
+
+class HiddenLayer:
 
     def __init__(self,
+                input,
                 n_in,
                 n_out,
                 activation):
+        #print n_in,n_out
         
         bound = np.sqrt(6./(n_in+n_out))
-        self.W = np.asarray(rng.uniform(-bound,bound,(n_in,n_out)),dtype='float32')
-        self.b = np.zeros((n_out,),dtype='float32')
-        self.params = [self.W,self.b]
-	self.activation = activation
+        
+        W = np.asarray(rng.uniform(-bound,bound,(n_in,n_out)),
+                       dtype=theano.config.floatX)
+        W = theano.shared(value=W,name='Whidden',borrow=True)
+        
+        b = np.zeros((n_out,),dtype=theano.config.floatX)
+        b = theano.shared(value=b,name='bhidden',borrow=True)
+        
+        self.params = [W,b]
 
-    def predict(self,x):
+        self.output = activation(T.dot(input,W)+b)
+        #output_print = T.printing.Print('output:')(self.output)
+        #output_print
 
-	#print x.shape,self.W.shape,self.b.shape
-        return self.activation(np.dot(x,self.W)+self.b)
-
-class MLP(object):
+class MLP:
 
     def __init__(self,
                 layer_size_list,
-                decay=1e-4,
-                batch_size=50):
+                decay=1e-3,
+                batch_size = 50):
         
-	self.decay = decay
         self.batch_size = batch_size
         self.n_hidden_layer = len(layer_size_list) - 1
         
-        self.layer_list = []
+        x = T.fmatrix('x')
+        y = T.imatrix('y')
+        lr = T.fscalar('lr')
+
+        #x.tag.test_value = np.float32(np.random.rand(50,2304))
+        #y.tag.test_value = _onehot(np.random.randint(10,size=50),10)
+        #lr.tag.test_value = np.random.rand()
+
+        params = []
+        layer_list = []
         for i in range(self.n_hidden_layer):
             
-            if i<self.n_hidden_layer-1:
-                activation = np.tanh
+            if i==0:
+                input = x
             else:
-                activation = _softmax
+                input = prev_layer.output
             
-            layer = HiddenLayer(n_in=layer_size_list[i],
+            if i<self.n_hidden_layer-1:
+                activation = T.tanh
+            else:
+                activation = T.nnet.softmax
+            
+            layer = HiddenLayer(input=input,
+                                n_in=layer_size_list[i],
                                 n_out=layer_size_list[i+1],
                                 activation=activation)
-            self.layer_list.append(layer)
+                      
+            params += layer.params
+            #print params
+            layer_list.append(layer)
             
-    def feedforward(self,x):
+            prev_layer = layer
+        
+        #print layer_list[-1].output
+        cross_entropy = T.mean(-T.sum(y*T.log(layer_list[-1].output),axis=1))
 
-	self.layer_outputs = []
-	for layer in self.layer_list:
-	    x = layer.predict(x)
-	    self.layer_outputs.append(x)
-	return self.layer_outputs[-1]
+        regularization = decay*sum([T.sum(i**2) for i in params if 'W' in i.name])
 
-    def cost(self,x,y):
+        cost = cross_entropy + regularization
+        
+        grad_params = T.grad(cost,params)
 
-	MSE = np.mean((y-self.layer_outputs[-1])**2)
-        regularization = self.decay*np.sum([np.sum(layer.W**2) for layer in self.layer_list])
-        return MSE + regularization/x.shape[0]
+        updates = [(p,p-lr*g) for p,g in zip(params,grad_params)]
 
-    def sgd(self,x,y,lr):
-	
-        o = self.feedforward(x)
-	deltas = [None]*self.n_hidden_layer
-        deltas[-1] = (y-o)*o*(1.0-o)
-	#print o.shape,y.shape,deltas[-1].shape
-
-        for i in range(self.n_hidden_layer-1):
-	    o = self.layer_outputs[-i-2]
-	    deltas[-i-2] = o*(1.0-o)*np.dot(deltas[-i-1],self.layer_list[-i-1].W.T)
-	    #print o.shape,self.layer_list[-i-1].W.shape,deltas[-i-2].shape
-	    self.layer_list[-i-1].W += lr*np.dot(o.T,deltas[-i-1])
-	
-	return self.cost(x,y)	
+        self.prediction = function([x],
+                                    layer_list[-1].output
+                                    #mode=theano.compile.MonitorMode(
+                                        #pre_func=inspect_inputs,
+                                        #post_func=inspect_outputs
+                                        #post_func=detect_nan)
+                                    )
+        
+        self.sgd = function([x,y,lr],
+                            cost,
+                            updates=updates
+                            #mode=theano.compile.MonitorMode(
+                                #pre_func=inspect_inputs,
+                                #post_func=inspect_outputs
+                                #post_func=detect_nan)
+                            )
         
     def predict(self,x):
         
-        y_list = []    
+        y_list = []
+        
         for k in range(x.shape[0] // self.batch_size):
-            y_list.append(self.feedforward(x[k*self.batch_size:(k+1)*self.batch_size]))
+            y_list.append(self.prediction(x[k*self.batch_size:(k+1)*self.batch_size]))
+        
         return np.vstack(y_list)
 
     def train(self,
                 x,
                 y,
                 customized_test,
-                n_epoch=2000,
+                n_epoch=500,
                 lr=0.01,
                 factor=80):
     
@@ -101,8 +150,8 @@ class MLP(object):
 
             for batch in xrange(n_batch):
                 x_batch = x[batch*self.batch_size:(batch+1)*self.batch_size]
-                x_batch += np.asarray(rng.uniform(-4.,4.,x_batch.shape),
-                                        dtype='float32')
+                x_batch += np.asarray(rng.uniform(-4./255,4./255,x_batch.shape),
+                                        dtype=theano.config.floatX)
                 y_batch = y[batch*self.batch_size:(batch+1)*self.batch_size]
                 #print x_batch.shape,y_batch.shape
                 cost += self.sgd(x_batch,
@@ -123,11 +172,12 @@ class MLP(object):
         print 'Valid MSE,CE:',valid_MSE_CE
         
         self.write_test(test_X)
+        
         return train_MSE_CE + valid_MSE_CE
         
     def write_test(self,test_X):
         
-        test_pred = self.feedforward(test_X)
+        test_pred = self.predict(test_X)
         #print test_pred
         f = open('/home/yw/imageClassification/results/mlp_test_outputs.csv','wb')
         writer = csv.writer(f, delimiter=',') 
@@ -139,18 +189,12 @@ class MLP(object):
 
     def accuracy(self,x,y):
         
-        y_hat = self.feedforward(x)
+        y_hat = self.predict(x)
+        
         sqr_err = ((y_hat-y)**2).sum() / y.shape[0]
         mis_class = 1-1.*np.equal(np.argmax(y,axis=1),(np.argmax(y_hat,axis=1))).sum() / y.shape[0]
+
         return sqr_err,mis_class
-
-def _softmax(x):
-
-    x = np.exp(x)
-    if len(x.shape) == 1:
-        return x/x.sum()
-    else:
-        return x/x.sum(axis=1).reshape((x.shape[0],1))
 
 def _onehot(y,n_col):
     
@@ -171,7 +215,7 @@ def main(batch_size=50,n_fold=5):
     N,M = all_train_X.shape 
     n = N // n_fold
 
-    record = [] 
+    record = []
     
     for lr in [0.01,0.02,0.03,0.04,0.05]:
         print 'Learning rate:',lr
@@ -199,7 +243,7 @@ def main(batch_size=50,n_fold=5):
                 err_list.append(customized_test())
             
             best_fold = np.argmin(err_list[:,3])
-	    record.append([lr,layer_size_list,err_list[best_fold]])
+            record.append([lr,layer_size_list,err_list[best_fold]])
 
 if __name__=="__main__":
     main()
