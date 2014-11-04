@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 NOV 2014 16:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 NOV 2014 18:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -475,12 +475,6 @@ Overfull \hbox (11.22758pt too wide) in paragraph at lines 238--238
 [] 
  []
 
-
-Overfull \hbox (13.4978pt too wide) in paragraph at lines 270--271
-\T1/aer/m/n/9 rate and ar-chi-tec-ture ac-cord-ing to the min-i-mal mis-classif
-ication
- []
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
@@ -522,98 +516,106 @@ File: graphs/gnb_cm1.png Graphic file (type png)
 
 <use graphs/gnb_cm1.png>
 Package pdftex.def Info: graphs/gnb_cm1.png used on input line 393.
-(pdftex.def)             Requested size: 192.00073pt x 174.46007pt.
+(pdftex.def)             Requested size: 167.99927pt x 152.64418pt.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.397 
        [4 <./graphs/gnb_param.png> <./graphs/conv_train.png>]
-<graphs/svm_conf.png, id=196, 433.62pt x 433.62pt>
+<graphs/svm_conf.png, id=200, 433.62pt x 433.62pt>
 File: graphs/svm_conf.png Graphic file (type png)
  <use graphs/svm_conf.png>
-Package pdftex.def Info: graphs/svm_conf.png used on input line 406.
-(pdftex.def)             Requested size: 215.99854pt x 216.00224pt.
+Package pdftex.def Info: graphs/svm_conf.png used on input line 425.
+(pdftex.def)             Requested size: 192.00073pt x 192.00421pt.
 
-<graphs/conv_conf.png, id=198, 442.2924pt x 442.2924pt>
-File: graphs/conv_conf.png Graphic file (type png)
-
-<use graphs/conv_conf.png>
-Package pdftex.def Info: graphs/conv_conf.png used on input line 415.
-(pdftex.def)             Requested size: 215.99854pt x 216.00305pt.
-
-Overfull \hbox (2.43542pt too wide) in paragraph at lines 412--419
+Overfull \hbox (2.43542pt too wide) in paragraph at lines 431--432
 \T1/aer/m/n/9 prob-a-bly be reached with larger model, as the ones we trained
  []
 
+<graphs/conv_conf.png, id=202, 442.2924pt x 442.2924pt>
+File: graphs/conv_conf.png Graphic file (type png)
 
-Overfull \hbox (4.84744pt too wide) in paragraph at lines 424--425
+<use graphs/conv_conf.png>
+Package pdftex.def Info: graphs/conv_conf.png used on input line 435.
+(pdftex.def)             Requested size: 192.00073pt x 192.00421pt.
+
+Overfull \hbox (4.84744pt too wide) in paragraph at lines 444--445
 \T1/aer/m/n/9 vo-lu-tion neu-ral net-works, acheive much higher ac-cu-racy. Con
 -
  []
 
 
-Overfull \hbox (1.14879pt too wide) in paragraph at lines 426--427
+Overfull \hbox (1.14879pt too wide) in paragraph at lines 446--447
 []\T1/aer/m/n/9 To sum-ma-rize, we en-deav-oured to clas-sify the mod-i-fied ha
 nd-
  []
 
-(./cs598report3.bblpdfTeX warning (ext4): destination with the same identifier 
-(name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1 \begin{thebibliography}{10}
-                                [5 <./graphs/gnb_cm1.png> <./graphs/svm_conf.pn
-g> <./graphs/conv_conf.png>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 433.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.433 \end{document}
+l.448 \newpage
+               [5 <./graphs/gnb_cm1.png> <./graphs/svm_conf.png> <./graphs/conv
+_conf.png>] (./cs598report3.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 454.
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.454 \end{document}
                      [6
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 433.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 454.
  (./cs598report3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 433.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 433.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 454.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 454.
 Package rerunfilecheck Info: File `cs598report3.out' has not changed.
 (rerunfilecheck)             Checksum: 28459FA9A412E940FB509EE5E3C2FE2D;2032.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 433.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 454.
  ) 
 Here is how much of TeX's memory you used:
- 7540 strings out of 493315
- 111466 string characters out of 6137904
- 204258 words of memory out of 5000000
- 10807 multiletter control sequences out of 15000+600000
- 56291 words of font info for 77 fonts, out of 8000000 for 9000
+ 7549 strings out of 493315
+ 111556 string characters out of 6137904
+ 204394 words of memory out of 5000000
+ 10810 multiletter control sequences out of 15000+600000
+ 56941 words of font info for 79 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 41i,11n,38p,1021b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/loca
-l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texliv
-e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2
-013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2013/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2013/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2013/texmf-dist/font
-s/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2013/texmf-dist/fonts/
-type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/u
-rw/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/time
-s/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.
-pfb>
-Output written on cs598report3.pdf (6 pages, 483273 bytes).
+ 41i,15n,38p,1021b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
+live/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/
+texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texl
+ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texliv
+e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/201
+3/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2013/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2013/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2013/texmf-dist/font
+s/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2013/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2013/texmf-dist/fonts/ty
+pe1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw
+/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/
+utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pf
+b>
+Output written on cs598report3.pdf (6 pages, 485380 bytes).
 PDF statistics:
- 294 PDF objects out of 1000 (max. 8388607)
- 256 compressed objects within 3 object streams
- 57 named destinations out of 1000 (max. 500000)
+ 303 PDF objects out of 1000 (max. 8388607)
+ 265 compressed objects within 3 object streams
+ 61 named destinations out of 1000 (max. 500000)
  242 words of extra memory for PDF output out of 10000 (max. 10000000)
 
