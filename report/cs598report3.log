@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 NOV 2014 15:54
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 NOV 2014 16:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -455,6 +455,12 @@ Overfull \hbox (9.49382pt too wide) in paragraph at lines 187--189
 \T1/aer/m/n/9 ral Net-work (CNN), and Gen-er-a-tive Stochas-tic Net-work (GSN)
  []
 
+
+Overfull \hbox (3.24731pt too wide) in paragraph at lines 214--215
+\T1/aer/m/n/9 It is suf-fi-cient to ap-ply the al-go-rithms to the pro-vided da
+taset.
+ []
+
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
@@ -490,62 +496,64 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.348 
-       [3] <graphs/gnb_param.png, id=175, 611.28375pt x 388.45125pt>
+l.349 \section
+              {Testing and Validation} [3]
+<graphs/gnb_param.png, id=179, 611.28375pt x 388.45125pt>
 File: graphs/gnb_param.png Graphic file (type png)
 
 <use graphs/gnb_param.png>
-Package pdftex.def Info: graphs/gnb_param.png used on input line 356.
+Package pdftex.def Info: graphs/gnb_param.png used on input line 359.
 (pdftex.def)             Requested size: 240.0pt x 152.50893pt.
 
-Overfull \hbox (9.20473pt too wide) in paragraph at lines 353--360
+Overfull \hbox (9.20473pt too wide) in paragraph at lines 356--363
 \T1/aer/m/n/9 norm pa-ram-e-ter in nor-mal-iza-tion pre-pro-cess-ing pro-cess. 
 When
  []
 
-<graphs/conv_train.png, id=177, 566.115pt x 317.185pt>
+<graphs/conv_train.png, id=181, 566.115pt x 317.185pt>
 File: graphs/conv_train.png Graphic file (type png)
 
 <use graphs/conv_train.png>
-Package pdftex.def Info: graphs/conv_train.png used on input line 378.
+Package pdftex.def Info: graphs/conv_train.png used on input line 381.
 (pdftex.def)             Requested size: 240.0pt x 134.46545pt.
 
-<graphs/gnb_cm1.png, id=180, 604.2575pt x 549.05125pt>
+<graphs/gnb_cm1.png, id=184, 604.2575pt x 549.05125pt>
 File: graphs/gnb_cm1.png Graphic file (type png)
 
 <use graphs/gnb_cm1.png>
-Package pdftex.def Info: graphs/gnb_cm1.png used on input line 390.
-(pdftex.def)             Requested size: 167.99927pt x 152.64418pt.
+Package pdftex.def Info: graphs/gnb_cm1.png used on input line 393.
+(pdftex.def)             Requested size: 192.00073pt x 174.46007pt.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.394 
+l.397 
        [4 <./graphs/gnb_param.png> <./graphs/conv_train.png>]
-<graphs/svm_conf.png, id=192, 433.62pt x 433.62pt>
+<graphs/svm_conf.png, id=196, 433.62pt x 433.62pt>
 File: graphs/svm_conf.png Graphic file (type png)
  <use graphs/svm_conf.png>
-Package pdftex.def Info: graphs/svm_conf.png used on input line 403.
-(pdftex.def)             Requested size: 192.00073pt x 192.00421pt.
+Package pdftex.def Info: graphs/svm_conf.png used on input line 406.
+(pdftex.def)             Requested size: 215.99854pt x 216.00224pt.
 
-Overfull \hbox (2.43542pt too wide) in paragraph at lines 409--410
-\T1/aer/m/n/9 prob-a-bly be reached with larger model, as the ones we trained
- []
-
-<graphs/conv_conf.png, id=194, 442.2924pt x 442.2924pt>
+<graphs/conv_conf.png, id=198, 442.2924pt x 442.2924pt>
 File: graphs/conv_conf.png Graphic file (type png)
 
 <use graphs/conv_conf.png>
-Package pdftex.def Info: graphs/conv_conf.png used on input line 414.
-(pdftex.def)             Requested size: 192.00073pt x 192.00421pt.
+Package pdftex.def Info: graphs/conv_conf.png used on input line 415.
+(pdftex.def)             Requested size: 215.99854pt x 216.00305pt.
 
-Overfull \hbox (4.84744pt too wide) in paragraph at lines 423--424
+Overfull \hbox (2.43542pt too wide) in paragraph at lines 412--419
+\T1/aer/m/n/9 prob-a-bly be reached with larger model, as the ones we trained
+ []
+
+
+Overfull \hbox (4.84744pt too wide) in paragraph at lines 424--425
 \T1/aer/m/n/9 vo-lu-tion neu-ral net-works, acheive much higher ac-cu-racy. Con
 -
  []
 
 
-Overfull \hbox (1.14879pt too wide) in paragraph at lines 425--426
+Overfull \hbox (1.14879pt too wide) in paragraph at lines 426--427
 []\T1/aer/m/n/9 To sum-ma-rize, we en-deav-oured to clas-sify the mod-i-fied ha
 nd-
  []
@@ -554,34 +562,34 @@ nd-
 (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.16 
-      [5 <./graphs/gnb_cm1.png> <./graphs/svm_conf.png> <./graphs/conv_conf.png
->])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 432.
+l.1 \begin{thebibliography}{10}
+                                [5 <./graphs/gnb_cm1.png> <./graphs/svm_conf.pn
+g> <./graphs/conv_conf.png>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 433.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \end{document}
+l.433 \end{document}
                      [6
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 432.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 433.
  (./cs598report3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 432.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 432.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 433.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 433.
 Package rerunfilecheck Info: File `cs598report3.out' has not changed.
-(rerunfilecheck)             Checksum: 9BCC0FA7088B6F0205E255BD95DF187F;1942.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 432.
+(rerunfilecheck)             Checksum: 28459FA9A412E940FB509EE5E3C2FE2D;2032.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 433.
  ) 
 Here is how much of TeX's memory you used:
- 7538 strings out of 493315
- 111426 string characters out of 6137904
+ 7540 strings out of 493315
+ 111466 string characters out of 6137904
  204258 words of memory out of 5000000
- 10806 multiletter control sequences out of 15000+600000
+ 10807 multiletter control sequences out of 15000+600000
  56291 words of font info for 77 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 41i,11n,38p,1021b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,11n,38p,1021b,384s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/loca
 l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/
@@ -602,10 +610,10 @@ type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/u
 rw/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/time
 s/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb>
-Output written on cs598report3.pdf (6 pages, 482895 bytes).
+Output written on cs598report3.pdf (6 pages, 483273 bytes).
 PDF statistics:
- 290 PDF objects out of 1000 (max. 8388607)
- 252 compressed objects within 3 object streams
- 56 named destinations out of 1000 (max. 500000)
- 234 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 294 PDF objects out of 1000 (max. 8388607)
+ 256 compressed objects within 3 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 242 words of extra memory for PDF output out of 10000 (max. 10000000)
 

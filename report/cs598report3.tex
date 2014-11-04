@@ -211,7 +211,7 @@ We adopted different data preprocessing methods based on the characteristic of e
 
 In Naive Bayes, we adopted normalization to  make it suitable for the algorithm. We obtained a set of scaled examples of unit norm after the normalization. We chose L2 norm since it resulted in the greatest improvement in terms of accuracy. We will give more details including the graph showing accuracy versus data preprocessing methods in later section (testing and validation).
 
-We did not use data preprocessing for MLP and LSVM.
+We chose not to use data preprocessing for MLP and LSVM. It is sufficient to apply the algorithms to the provided dataset. We concentrate more on the parameter selection instead of data preprocessing for these two algorithms.
 
 To train CNN, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits indenpendently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
 
@@ -330,6 +330,9 @@ Mini-batch size is an important hyper-parameter for training time. Larger mini-b
 
 Number of training iterations is also an important hyper-parameter, but it is easy to deal with because we can just set it very large and use early stopping criterion to control the optimum number of iterations. One early stopping technique is to monitor the training and validation errors, and stop when the latter keep increasing for a certain number of epochs. Other criteria include whether the total cost is decreasing, whether the learning rate stop changing beyond tolerant level, etc.    
 
+\subsubsection{Linear Support Vector Machines}
+Optimization in LSVM here???
+
 \subsubsection{Convolutional Neural Network}
 We train our CNN models similarly to MLP, using gradient descent with weight regularization.
 
@@ -387,7 +390,7 @@ We provide further analysis on testing and validation results with help of figur
 We also present the confusion matrix corresponding to the Gaussian Naive Bayes algorithm running with 5-fold cross validation on $L2$ normalized data in Figure \ref{fig:gnb_cm}. We normalized the row vectors of the confusion matrix so that we could make fair comparison among different classes. As can be seen from the normalized confusion matrix, the GNB classifier is capable of distinguish $0$ and $1$ from the others, but it performs relatively poor when classifying $2$ to $7$. Its comparatively promising performance on classifying $0$ may be due to the fact that the digit $0$ is least susceptible to all artificial alterations imposed on the original MNIST dataset (especially rotation).
 \begin{figure} 
 \centering
-\includegraphics[width=0.7\columnwidth]{graphs/gnb_cm1.png}  
+\includegraphics[width=0.8\columnwidth]{graphs/gnb_cm1.png}  
 \caption{Normalized confusion matrix for Gaussian Naive Bayes with train set size = 40,000 and test set size = 10,000}
 \label{fig:gnb_cm}
 \end{figure}
@@ -397,21 +400,19 @@ We also present the confusion matrix corresponding to the Gaussian Naive Bayes a
 results of NN
 
 \subsubsection{Linear Support Vector Machine }
-Similarly to GNB, LSVM seems to classify well $0$ and $1$, but rather poorly the other classes, probably for the same reasons. The row normalized confusion matrix for Linear Support Vector Machine is given in Figure \ref{fig:lsvm_conf}.
+The row normalized confusion matrix for Linear Support Vector Machine is given in Figure \ref{fig:lsvm_conf}. Similarly to GNB, LSVM seems to classify well $0$ and $1$, but rather poorly the other classes, probably for the same reasons. 
 \begin{figure} 
 \centering
-\includegraphics[width=0.8\columnwidth]{graphs/svm_conf.png}  
+\includegraphics[width=0.9\columnwidth]{graphs/svm_conf.png}  
 \caption{ Normalized confusion matrix for LSVM with train set size = 40,000 and test set size = 10,000}
 \label{fig:lsvm_conf}
 \end{figure}
 
 \subsubsection{Convolutional Neural Network}
 We see in Figure \ref{fig:conv_conf} that the ConvNet has good accuracy accross classes. As mentionned earlier, better accuracy could probably be reached with larger model, as the ones we trained would not have a much lower training error than validation error (at most 2$\%$ lower, often less).
-
-
 \begin{figure} 
 \centering
-\includegraphics[width=0.8\columnwidth]{graphs/conv_conf.png}  
+\includegraphics[width=0.9\columnwidth]{graphs/conv_conf.png}  
 \caption{Normalized confusion matrix for Convolutional Neural Nets with train set size = 40,000 and test set size = 10,000}
 \label{fig:conv_conf}
 \end{figure}
