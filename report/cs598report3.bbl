@@ -48,6 +48,13 @@ J.~Pineau and A.~Leigh.
   \url{http://www.cs.mcgill.ca/~jpineau/comp598/Projects/Project3_instructions.pdf}.
 \newblock Accessed: 2014-10-30.
 
+\bibitem{rumelhart1986learning}
+D.~E. Rumelhart, G.~E. Hinton, and R.~J. Williams.
+\newblock Learning internal representations by error-propagation.
+\newblock In {\em Parallel Distributed Processing: Explorations in the
+  Microstructure of Cognition. Volume 1}, volume~1, pages 318--362. MIT Press,
+  Cambridge, MA, 1986.
+
 \bibitem{mnistTheano}
 Theano.
 \newblock Classifying mnist digits using logistic regression.
