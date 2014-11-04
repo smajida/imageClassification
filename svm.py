@@ -23,12 +23,12 @@ for k in range(n_folds):
     testY = all_Y[k*fs:(k+1)*fs]#[:1000]
     
     print trainX.shape,trainY.shape,testX.shape,testY.shape
-    m = sklearn.svm.LinearSVC(dual=False)
+    m = sklearn.svm.LinearSVC(C=100.,dual=False)
     m.fit(trainX, trainY)
     ypred = m.predict(testX)
     p += 1.*(ypred == testY).sum()/ypred.shape[0]
     print "Accuracy", 1.*(ypred == testY).sum()/ypred.shape[0]
-    if k == 0 and False:
+    if k == 0:
         cm = confusion_matrix(ypred, testY)
         cm = cm.astype('float')
         
