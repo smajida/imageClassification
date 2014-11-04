@@ -305,7 +305,6 @@ A bias is then added on each individual filter map, which is then bounded by an 
 H_i(x,y) = \tanh(h_i(x,y) + b_i) = \tanh(W\ast x + b) \label{eq:cnn2}
 \end{equation}
 
->>>>>>> 5859167851b6d119c2e47213bc5a6c4cf4421078
 Finally, maxpooling is applied to the filter maps, where each $(s \times t)$ blocks of the maps are reduced to their maximum value. For $s=t=2$, it is essentially scaling the image down by a factor two, but keeping the max instead of taking, say, the average value. This gives the model some level of translation invariance, on top of the ability to detect highly local features.
 
 After having created a feature map representation of the input, we flatten the last feature maps to vector form, and feed it to a two layer feedforward neural network, with a $tanh$ hidden layer and a softmax output layer. The softmax function is as follows:
