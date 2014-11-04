@@ -17,10 +17,10 @@ fs = foldsize = n_examples / n_folds
 p = 0
 for k in range(n_folds):
     print "Fitting fold",k
-    trainX = np.vstack([all_X[:k*fs],all_X[(k+1)*fs:]])#[:10000]
-    trainY = np.hstack([all_Y[:k*fs],all_Y[(k+1)*fs:]])#[:10000]
-    testX = all_X[k*fs:(k+1)*fs]#[:10000]
-    testY = all_Y[k*fs:(k+1)*fs]#[:1000]
+    trainX = np.vstack([all_X[:k*fs],all_X[(k+1)*fs:]])
+    trainY = np.hstack([all_Y[:k*fs],all_Y[(k+1)*fs:]])
+    testX = all_X[k*fs:(k+1)*fs]
+    testY = all_Y[k*fs:(k+1)*fs]
     
     print trainX.shape,trainY.shape,testX.shape,testY.shape
     m = sklearn.svm.LinearSVC(C=100.,dual=False)
