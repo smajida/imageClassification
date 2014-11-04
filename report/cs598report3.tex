@@ -331,7 +331,7 @@ Mini-batch size is an important hyper-parameter for training time. Larger mini-b
 Number of training iterations is also an important hyper-parameter, but it is easy to deal with because we can just set it very large and use early stopping criterion to control the optimum number of iterations. One early stopping technique is to monitor the training and validation errors, and stop when the latter keep increasing for a certain number of epochs. Other criteria include whether the total cost is decreasing, whether the learning rate stop changing beyond tolerant level, etc.    
 
 \subsubsection{Linear Support Vector Machines}
-Optimization in LSVM here???
+Since we relied on scikit-learn \cite{scikit-learn} to optimize our SVM model, we did not control any particular optimization factors ourselves.
 
 \subsubsection{Convolutional Neural Network}
 We train our CNN models similarly to MLP, using gradient descent with weight regularization.
