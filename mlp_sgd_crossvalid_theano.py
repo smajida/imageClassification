@@ -220,7 +220,7 @@ def main(batch_size=50,n_fold=5):
     for lr in [0.01,0.02,0.03,0.04,0.05]:
         print 'Learning rate:',lr
         
-        for layer_size_list in [[M,100,10],[M,1000,10],[M,500,200,10],[M,1000,500,100,10]]:
+        for layer_size_list in [[M,3000,10],[M,5000,10],[M,3000,1000,10],[M,5000,2000,100,10]]:
             print 'Layer size list:', layer_size_list
             
             err_list = []

@@ -245,7 +245,7 @@ An MLP is a feedforward neural network consisting of multiple layers of nodes in
 
 We train all MLP using back-propagation by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
 
-We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01,0.02, ...,0.05. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100],[1000],[500,200],[1000,500,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
+We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01,0.02, ...,0.05. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100],[1000],[500,200],[1000,500,100],M,3000,10],[5000],[3000,1000],[5000,2000,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
 
 \subsubsection{Linear Support Vector Machine }
 A SVM constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
@@ -288,14 +288,13 @@ We need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$
 \begin{equation}
 \arg \max_{y_i} \log P(Y = y_i) + \sum_{j=1}^m \log f (x_j, \mu_{ij}, \sigma_{ij} ) \label{eq:log}
 \end{equation}
-In Neural Network, ... . In linear SVM, ... . In XXX, ... .
 
 \subsubsection{Multilayer Perceptron}
 The main optimization technique in our implementations of deep neural networks is stochastic gradient descent. With appropriate implementation and choices of hyper-parameters, training time can be significantly reduced.
 
 Mini-batch size is an important hyper-parameter for training time. Larger mini-batch size usually yields faster computation, but it requires to consume more samples to reach the same error with smaller mini-batch size, since there are less updates per training iteration. However, this parameter only impacts the training time instead of test results. So we did not cross-validate this parameter together with learning rate and network architecture. 
 
-Number of training iterations is also an important hyper-parameter, but it is easy to deal with because we can just set it very large and use early stopping criteria to control the optimum number of iterations. One early stopping technique is to monitor the training and validation errors, and stop when the latter goes up.  
+Number of training iterations is also an important hyper-parameter, but it is easy to deal with because we can just set it very large and use early stopping criterion to control the optimum number of iterations. One early stopping technique is to monitor the training and validation errors, and stop when the latter keep increasing for a certain number of epochs. Other criteria include whether the total cost is decreasing, whether the learning rate stop changing beyond tolerant level, etc.    
 
 \subsubsection{Convolutional Neural Network}
 We train our CNN models similarly to MLP, using gradient descent with weight regularization.\\
@@ -325,17 +324,17 @@ Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessa
 
 
 \subsubsection{Multilayer Perceptron}
-The initial learning rate is the most important hyper-parameter. We set the learning rate to decrease with multiplicative factor $80/(epoch+80)$ where $epoch$ is the number training iterations already done. 
+Initial learning rate is the most important hyper-parameter in terms of optimization. We set the learning rate to decrease with multiplicative factor $80/(epoch+80)$ where $epoch$ is the number training iterations already done. 
 
-
+Number of hidden units is an important hyper-parameter in terms of model and training criterion. Unsurprisingly, we find that a better result can usually be obtained if the first hidden layer is larger than the input layer.
 
 \subsubsection{Linear Support Vector Machine }
 Write something about what are important parameters in SVM and how you train them, with graphs showing how accuracy varies as these parameters vary
 
 \subsubsection{Convolutional Neural Network}
-Considering the massive amount of time that is required to train CNNs, 5-fold validation error was not always considered when choosing hyperparameters. Instead, we relied on a 4:1 split of the dataset. \\
-We first tried using two convolutional layers, but quickly realised that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best. Similarly we used small filter sizes it gave the best early results. \\
-As such, we did not do proper hyperparameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.
+Considering the massive amount of time that is required to train CNNs, 5-fold validation error was not always considered when choosing hyper-parameters. Instead, we relied on a 4:1 split of the dataset. \\
+We first tried using two convolutional layers, but quickly realized that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best. Similarly we used small filter sizes it gave the best early results. \\
+As such, we did not do proper hyper-parameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.
 \begin{figure} 
 \centering
 \includegraphics[width=0.9\columnwidth]{graphs/conv_train.png}  
