@@ -150,7 +150,7 @@ class MLP:
 
             for batch in xrange(n_batch):
                 x_batch = x[batch*self.batch_size:(batch+1)*self.batch_size]
-                x_batch += np.asarray(rng.uniform(-4./255,4./255,x_batch.shape),
+                x_batch += np.asarray(rng.uniform(-4.,4.,x_batch.shape),
                                         dtype=theano.config.floatX)
                 y_batch = y[batch*self.batch_size:(batch+1)*self.batch_size]
                 #print x_batch.shape,y_batch.shape
@@ -217,10 +217,10 @@ def main(batch_size=50,n_fold=5):
 
     record = []
     
-    for lr in [0.01,0.02,0.03,0.04,0.05]:
+    for lr in [0.01,0.02]:
         print 'Learning rate:',lr
         
-        for layer_size_list in [[M,3000,10],[M,5000,10],[M,3000,1000,10],[M,5000,2000,100,10]]:
+        for layer_size_list in [[M,100,10],[M,3000,10],[M,3000,1000]]:
             print 'Layer size list:', layer_size_list
             
             err_list = []
