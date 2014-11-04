@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Bishop:2006:PRM:1162264}
 C.~M. Bishop.
@@ -31,6 +31,14 @@ Y.~Lecun, L.~Bottou, Y.~Bengio, and P.~Haffner.
 Y.~Lecun and C.~Cortes.
 \newblock {The MNIST database of handwritten digits}.
 \newblock \url{http://yann.lecun.com/exdb/mnist/}.
+\newblock Accessed: 2014-10-30.
+
+\bibitem{pineaul13}
+J.~Pineau.
+\newblock Comp 598 - applied machine learning lecture 13: Support vector
+  machines.
+\newblock
+  \url{http://www.cs.mcgill.ca/~jpineau/comp598/Lectures/13SVM2-publish.pdf}.
 \newblock Accessed: 2014-10-30.
 
 \bibitem{pineaul5}
