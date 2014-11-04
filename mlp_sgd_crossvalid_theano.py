@@ -136,7 +136,7 @@ class MLP:
                 x,
                 y,
                 customized_test,
-                n_epoch=500,
+                n_epoch=1500,
                 lr=0.01,
                 factor=80):
     
@@ -244,6 +244,7 @@ def main(batch_size=50,n_fold=5):
             
             best_fold = np.argmin(err_list[:,3])
             record.append([lr,layer_size_list,err_list[best_fold]])
+	    print record
 
 if __name__=="__main__":
     main()

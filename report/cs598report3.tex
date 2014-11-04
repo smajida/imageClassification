@@ -137,7 +137,7 @@ Yuting Wen \\
 %\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
 %email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 %(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
+\date{4 November 2014}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
@@ -163,11 +163,11 @@ The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchst
 
 The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
-We decided to apply five different algorithms: Gaussian Naive Bayes (GNB), Multilayer Perceptron (MLP), Linear Support Vector Machine (LSVM), Deep Convolutional Neural Network (CNN), and Generative Stochastic Network (GSN) to the modified MNIST dataset. For the baseline algorithm, we chose GNB since features given as float numbers are continuous. For MLP, we cross-validate over different learning rates, numbers of hidden layers and units. For LSVM, ...... For ConvNets we applied many layers of convolution with $tanh$ units, followed by a single hidden layer and a softmax prediction layer. For GSN, we use both supervised and unsupervised versions with and without walkback. (one or two sentences summarizing each algorithm)
+We decided to apply five different algorithms: Gaussian Naive Bayes (GNB), Multilayer Perceptron (MLP), Linear Support Vector Machine (LSVM), Deep Convolutional Neural Network (CNN), and Generative Stochastic Network (GSN) to the modified MNIST dataset. For the baseline algorithm, we chose GNB since features given as float numbers are continuous. For MLP, we cross-validate over different learning rates, numbers of hidden layers and units. For LSVM, ...... For CNN we applied many layers of convolution with $tanh$ units, followed by a single hidden layer and a softmax prediction layer. For GSN, we use both supervised and unsupervised versions with and without walkback. (one or two sentences summarizing each algorithm)
 
-The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... ConvNets seem to be the best suited models for this task, as we acheive around 93.6$\%$ validation accuracy, and 94.05$\%$ accuracy on the public test set. As a second generative model besides GNB, GSN provides around 50$\%$ accuracy with a supervised version.
+The performance of algorithms varies widely. The base line algorithm, Naive Bayes, provides around 40$\%$ accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. NN..... . SVM..... CNNs seem to be the best suited models for this task, as we acheive around 93.6$\%$ validation accuracy, and 94.05$\%$ accuracy on the public test set. As a second generative model besides GNB, GSN provides around 50$\%$ accuracy with a supervised version.
 
-Our empirical results, though preliminary, provide considerably accurate predictions (especially Convolutional Neural Networks) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
+Our empirical results, though preliminary, provide considerably accurate predictions (especially CNN) for the modified MNIST digit classification. Thus, we are optimistic of applying the algorithms and analysis presented in this report to other real-world  classification problems. In particular, this can motivate the further study on more specialized machine learning algorithms on image classification tasks.
 
 
 
@@ -280,7 +280,7 @@ $$ s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
 
 
 \subsection{Optimization}
-Some algorithms involve maximization or minimization processes. 
+Aside from using multi-core machines with BLAS and GPU, we can improve some algorithms to optimize training time. 
 
 
 \subsubsection{Gaussian Naive Bayes}
@@ -291,8 +291,11 @@ We need to maximize the $P(Y = y_i) \Pi_{j=1}^m f (x_j, \mu_{ij}, \sigma_{ij} )$
 In Neural Network, ... . In linear SVM, ... . In XXX, ... .
 
 \subsubsection{Multilayer Perceptron}
+The main optimization technique in our implementations of deep neural networks is stochastic gradient descent. With appropriate implementation and choices of hyper-parameters, training time can be significantly reduced.
 
+Mini-batch size is an important hyper-parameter for training time. Larger mini-batch size usually yields faster computation, but it requires to consume more samples to reach the same error with smaller mini-batch size, since there are less updates per training iteration. However, this parameter only impacts the training time instead of test results. So we did not cross-validate this parameter together with learning rate and network architecture. 
 
+Number of training iterations is also an important hyper-parameter, but it is easy to deal with because we can just set it very large and use early stopping criteria to control the optimum number of iterations. One early stopping technique is to monitor the training and validation errors, and stop when the latter goes up.  
 
 \subsubsection{Convolutional Neural Network}
 We train our CNN models similarly to MLP, using gradient descent with weight regularization.\\
@@ -312,7 +315,7 @@ In this section, we present detailed experimental results, most of them in terms
 We first embark upon an analysis on the relation between hyper-parameters and algorithm performance.
  
 \subsubsection{Baseline: Naive Bayes}
-Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessarily need to include Laplace smoothing. Instead, we show how accuracy varies as we alter the norm parameter in normalization preprocessing process. When we normalized data, we tried both $L1$ and $L2$ norm.  As presented in  Figure \ref{fig:gnbparam}, Gaussian Naive Bayes together with the normalization preprocessing method (with $L2$ norm) brings out the most satisfactory results.   In particular, we also compare the performance of Gaussian Naive Bayes with other Naive Bayes algorithm (multinomial Naive Bayes) to  observe how normalization affects the prediction accuracy. Gaussian Naive Bayes in general outperforms Multinomial Naive Bayes. More interestingly,  while Multinomial Naive Bayes performs worse on the normalized data (especially $L1$),  Gaussian Naive Bayes produces higher prediction accuracy as we further processed the data (from no normalization to $L1$, and from $L1$ to $L2$).
+Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessarily need to include Laplace smoothing. Instead, we show how accuracy varies as we alter the norm parameter in normalization preprocessing process. When we normalized data, we tried both $L1$ and $L2$ norm.  As presented in  Figure \ref{fig:gnbparam}, Gaussian Naive Bayes together with the normalization preprocessing method (with $L2$ norm) brings out the most satisfactory results.   In particular, we also compare the performance of Gaussian Naive Bayes with other Naive Bayes algorithm (Multinomial Naive Bayes) to  observe how normalization affects the prediction accuracy. Gaussian Naive Bayes in general outperforms Multinomial Naive Bayes. More interestingly,  while Multinomial Naive Bayes performs worse on the normalized data (especially $L1$),  Gaussian Naive Bayes produces higher prediction accuracy as we further processed the data (from no normalization to $L1$, and from $L1$ to $L2$).
 \begin{figure} 
 \centering
 \includegraphics[width=0.9\columnwidth]{graphs/gnb_param.png}  
@@ -322,19 +325,21 @@ Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessa
 
 
 \subsubsection{Multilayer Perceptron}
-Write something about what are important parameters in NN and how you train them, with graphs showing how accuracy varies as these parameters vary
+The initial learning rate is the most important hyper-parameter. We set the learning rate to decrease with multiplicative factor $80/(epoch+80)$ where $epoch$ is the number training iterations already done. 
+
+
 
 \subsubsection{Linear Support Vector Machine }
 Write something about what are important parameters in SVM and how you train them, with graphs showing how accuracy varies as these parameters vary
 
 \subsubsection{Convolutional Neural Network}
-Considering the massive amount of time that is required to train ConvNets, 5-fold validation error was not always considered when choosing hyperparameters. Instead, we relied on a 4:1 split of the dataset. \\
+Considering the massive amount of time that is required to train CNNs, 5-fold validation error was not always considered when choosing hyperparameters. Instead, we relied on a 4:1 split of the dataset. \\
 We first tried using two convolutional layers, but quickly realised that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best. Similarly we used small filter sizes it gave the best early results. \\
 As such, we did not do proper hyperparameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.
 \begin{figure} 
 \centering
 \includegraphics[width=0.9\columnwidth]{graphs/conv_train.png}  
-\caption{Validation error rate of different ConvNet model sizes during training}
+\caption{Validation error rate of different CNN model sizes during training}
 \label{fig:conv_train}
 \end{figure}
 
