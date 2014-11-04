@@ -1,46 +1,48 @@
-This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: cs598report3.aux
 The style file: abbrv.bst
 Database file #1: sigproc.bib
-You've used 8 entries,
+Warning--can't use both volume and number fields in rumelhart1986learning
+You've used 10 entries,
             2118 wiz_defined-function locations,
-            550 strings with 5394 characters,
-and the built_in function-call counts, 2598 in all, are:
-= -- 261
-> -- 111
-< -- 2
-+ -- 44
-- -- 36
-* -- 143
-:= -- 421
-add.period$ -- 30
-call.type$ -- 8
-change.case$ -- 41
+            561 strings with 5817 characters,
+and the built_in function-call counts, 3326 in all, are:
+= -- 337
+> -- 136
+< -- 4
++ -- 54
+- -- 44
+* -- 184
+:= -- 531
+add.period$ -- 38
+call.type$ -- 10
+change.case$ -- 51
 chr.to.int$ -- 0
-cite$ -- 8
-duplicate$ -- 97
-empty$ -- 220
-format.name$ -- 36
-if$ -- 570
+cite$ -- 11
+duplicate$ -- 128
+empty$ -- 283
+format.name$ -- 44
+if$ -- 735
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 5
-newline$ -- 47
-num.names$ -- 16
-pop$ -- 67
+int.to.str$ -- 10
+missing$ -- 6
+newline$ -- 58
+num.names$ -- 20
+pop$ -- 84
 preamble$ -- 1
-purify$ -- 34
+purify$ -- 42
 quote$ -- 0
-skip$ -- 75
+skip$ -- 98
 stack$ -- 0
-substring$ -- 131
-swap$ -- 27
-text.length$ -- 2
+substring$ -- 173
+swap$ -- 40
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 30
-warning$ -- 0
-while$ -- 23
-width$ -- 9
-write$ -- 95
+type$ -- 38
+warning$ -- 1
+while$ -- 30
+width$ -- 12
+write$ -- 119
+(There was 1 warning)

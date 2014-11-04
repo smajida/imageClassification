@@ -41,6 +41,27 @@
 \usepackage{dsfont}
 \usepackage[font={small,it}]{caption}
 
+
+% Alter some LaTeX defaults for better treatment of figures:
+    % See p.105 of "TeX Unbound" for suggested values.
+    % See pp. 199-200 of Lamport's "LaTeX" book for details.
+    %   General parameters, for ALL pages:
+    \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+    \renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+    %   Parameters for TEXT pages (not float pages):
+    \setcounter{topnumber}{2}
+    \setcounter{bottomnumber}{2}
+    \setcounter{totalnumber}{4}     % 2 may work better
+    \setcounter{dbltopnumber}{2}    % for 2-column pages
+    \renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+    \renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+    %   Parameters for FLOAT pages (not text pages):
+    \renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+	% N.B.: floatpagefraction MUST be less than topfraction !!
+    \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+
+	% remember to use [htp] or [htpb] for placement
+
 \begin{document}
 
 \title{Handwritten Digits Classification
@@ -190,7 +211,7 @@ We adopted different data preprocessing methods based on the characteristic of e
 
 In Naive Bayes, we adopted normalization to  make it suitable for the algorithm. We obtained a set of scaled examples of unit norm after the normalization. We chose L2 norm since it resulted in the greatest improvement in terms of accuracy. We will give more details including the graph showing accuracy versus data preprocessing methods in later section (testing and validation).
 
-We did not use data preprocessing for MLP and LSVM.
+We chose not to use data preprocessing for MLP and LSVM. It is sufficient to apply the algorithms to the provided dataset. We concentrate more on the parameter selection instead of data preprocessing for these two algorithms.
 
 To train CNN, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits indenpendently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
 
@@ -249,37 +270,48 @@ We train all MLP using back-propagation\cite{rumelhart1986learning} by updating 
 We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01 and 0.02. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100]$, $[3000]$, $[3000,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
 
 \subsubsection{Linear Support Vector Machine }
-A SVM constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
+A SVM \cite{pineaul13} constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
 
 Given training set $x_i\in R^p,i=1,...,n$, in two classes, and a target vector $y\in R^n$ with $y_i\in \{1,-1\}$, SVM sovles the following primal problem:
-\[
-\min_{w,b,\xi} \frac12 w^T w + C \sum_{i=1}^n \xi_i
-\]
+\begin{equation}
+\min_{w,b,\xi} \frac12 w^T w + C \sum_{i=1}^n \xi_i \label{eq:lsvm1}
+\end{equation}
 \[
 \mbox{subject to } y_i (w^T \phi(x_i)+b)\geq 1-\xi_i,
 \xi\geq 0, i=1,...,n.
 \]
 Its dual is
-\[
-\min_{\alpha}\frac12 \alpha^T Q\alpha - e^T\alpha
-\]
+\begin{equation}
+\min_{\alpha}\frac12 \alpha^T Q\alpha - e^T\alpha \label{eq:lsvm2}
+\end{equation}
 \[
 \mbox{subject to } y^T\alpha = 0, 0\leq \alpha_i\leq C,i=1,...,l
 \]
-where $e$ is the vector of all ones, $C>0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij}=K(x_i,x_j)$ and $\phi(x_i)^T\phi(x)$ is the kernel. The decision function is \\$sgn(\sum_{i=1}^n y_i\alpha_i K(x_i,x)+\rho)$.
+where $e$ is the vector of all ones, $C>0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij}=K(x_i,x_j)$ and $\phi(x_i)^T\phi(x)$ is the kernel. The decision function is 
+\begin{equation}
+sgn(\sum_{i=1}^n y_i\alpha_i K(x_i,x)+\rho) \label{eq:lsvm3}
+\end{equation}
 
 
 \subsubsection{Convolutional Neural Network}
 Convolutional Neural Networks apply the idea of signal convolution to neural networks. The key idea is that groups of neurons, filters, are applied locally on subregions of the images instead of the whole image \cite{726791}. These filters are then convolved on input images, thus creating new images, or feature maps.
 
 The original input image is considered as a single feature map, $f(x,y)$. Generally the input to a convolutional layer is a set of $n_f$ feature maps, $f_i(x,y)$, on which the $n_j$ filters of size $(p\times q)$ $g_k(x,y)$ (also usually represented as a 4d-tensor $W$ of weights) are convolved, thus creating $n_g$ new feature maps $h_j(x,y)$:
-$$ h_j(x,y) = \sum_{u=0}^p\sum_{v=0}^q\sum_{i=0}^{n_f} f_i(x+u,y+v)g_j(u,v) $$
+\begin{equation}
+ h_j(x,y) = \sum_{u=0}^p\sum_{v=0}^q\sum_{i=0}^{n_f} f_i(x+u,y+v)g_j(u,v)  \label{eq:cnn1}
+ \end{equation}
 A bias is then added on each individual filter map, which is then bounded by an activation function (here we used the hyperbolic tangent $tanh$). We get that the output of a layer in terms of feature maps is 
-$$H_i(x,y) = \tanh(h_i(x,y) + b_i) = \tanh(W\ast x + b) $$
+\begin{equation}
+H_i(x,y) = \tanh(h_i(x,y) + b_i) = \tanh(W\ast x + b) \label{eq:cnn2}
+\end{equation}
+
+>>>>>>> 5859167851b6d119c2e47213bc5a6c4cf4421078
 Finally, maxpooling is applied to the filter maps, where each $(s \times t)$ blocks of the maps are reduced to their maximum value. For $s=t=2$, it is essentially scaling the image down by a factor two, but keeping the max instead of taking, say, the average value. This gives the model some level of translation invariance, on top of the ability to detect highly local features.
 
 After having created a feature map representation of the input, we flatten the last feature maps to vector form, and feed it to a two layer feedforward neural network, with a $tanh$ hidden layer and a softmax output layer. The softmax function is as follows:
-$$ s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
+\begin{equation}
+s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} \label{eq:cnn3}
+\end{equation} 
 
 
 \subsection{Optimization}
@@ -299,10 +331,14 @@ Mini-batch size is an important hyper-parameter for training time. Larger mini-b
 
 Number of training iterations is also an important hyper-parameter, but it is easy to deal with because we can just set it very large and use early stopping criterion to control the optimum number of iterations. One early stopping technique is to monitor the training and validation errors, and stop when the latter keep increasing for a certain number of epochs. Other criteria include whether the total cost is decreasing, whether the learning rate stop changing beyond tolerant level, etc.    
 
+\subsubsection{Linear Support Vector Machines}
+Optimization in LSVM here???
+
 \subsubsection{Convolutional Neural Network}
 We train our CNN models similarly to MLP, using gradient descent with weight regularization.
 
 What is added, as mentioned in the methodology section, is that we train our models on randomly rotated examples generated online from the training data.
+
 On top of that, we use our prior knowledge of the task to perform some kind of bagging. What we are doing is not bagging different models with the same input, but rather ``bagging'' the same convolutional model with different inputs, where each of these inputs is in fact the original input with a different rotation. This takes advantage of the fact that the original data is created using random rotations of the source images, and reduces the error significantly.
 
 
@@ -321,7 +357,7 @@ We first embark upon an analysis on the relation between hyper-parameters and al
 Since we chose Gaussian Naive Bayes as the baseline algorithm, we do not necessarily need to include Laplace smoothing. Instead, we show how accuracy varies as we alter the norm parameter in normalization preprocessing process. When we normalized data, we tried both $L1$ and $L2$ norm.  As presented in  Figure \ref{fig:gnbparam}, Gaussian Naive Bayes together with the normalization preprocessing method (with $L2$ norm) brings out the most satisfactory results.   In particular, we also compare the performance of Gaussian Naive Bayes with other Naive Bayes algorithm (Multinomial Naive Bayes) to  observe how normalization affects the prediction accuracy. Gaussian Naive Bayes in general outperforms Multinomial Naive Bayes. More interestingly,  while Multinomial Naive Bayes performs worse on the normalized data (especially $L1$),  Gaussian Naive Bayes produces higher prediction accuracy as we further processed the data (from no normalization to $L1$, and from $L1$ to $L2$).
 \begin{figure} 
 \centering
-\includegraphics[width=0.9\columnwidth]{graphs/gnb_param.png}  
+\includegraphics[width=1\columnwidth]{graphs/gnb_param.png}  
 \caption{Accuracy versus different Naive Bayes using the original data, $L1$-normalized data, and $L2$-normalized data (train set size = 40,000 and test set size = 10,000)}
 \label{fig:gnbparam}
 \end{figure}
@@ -343,7 +379,7 @@ We first tried using two convolutional layers, but quickly realized that using t
 As such, we did not do proper hyper-parameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.
 \begin{figure} 
 \centering
-\includegraphics[width=0.9\columnwidth]{graphs/conv_train.png}  
+\includegraphics[width=1\columnwidth]{graphs/conv_train.png}  
 \caption{Validation error rate of different CNN model sizes during training}
 \label{fig:conv_train}
 \end{figure}
@@ -382,21 +418,19 @@ LR\footnote{initial learning rate} & hidden layer sizes & validation MSE\footnot
 \end{table*}
 
 \subsubsection{Linear Support Vector Machine }
-Similarly to GNB, LSVM seems to classify well $0$ and $1$, but rather poorly the other classes, probably for the same reasons.
+The row normalized confusion matrix for Linear Support Vector Machine is given in Figure \ref{fig:lsvm_conf}. Similarly to GNB, LSVM seems to classify well $0$ and $1$, but rather poorly the other classes, probably for the same reasons. 
 \begin{figure} 
 \centering
-\includegraphics[width=0.8\columnwidth]{graphs/svm_conf.png}  
-\caption{Normalized confusion matrix for LSVM with train set size = 40,000 and test set size = 10,000}
-\label{fig:conv_conf}
+\includegraphics[width=0.9\columnwidth]{graphs/svm_conf.png}  
+\caption{ Normalized confusion matrix for LSVM with train set size = 40,000 and test set size = 10,000}
+\label{fig:lsvm_conf}
 \end{figure}
 
 \subsubsection{Convolutional Neural Network}
 We see in Figure \ref{fig:conv_conf} that the ConvNet has good accuracy accross classes. As mentionned earlier, better accuracy could probably be reached with larger model, as the ones we trained would not have a much lower training error than validation error (at most 2$\%$ lower, often less).
-
-
 \begin{figure} 
 \centering
-\includegraphics[width=0.8\columnwidth]{graphs/conv_conf.png}  
+\includegraphics[width=0.9\columnwidth]{graphs/conv_conf.png}  
 \caption{Normalized confusion matrix for Convolutional Neural Nets with train set size = 40,000 and test set size = 10,000}
 \label{fig:conv_conf}
 \end{figure}
