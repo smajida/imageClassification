@@ -267,40 +267,50 @@ An MLP is a feedforward neural network consisting of multiple layers of nodes in
 
 We train all MLP using back-propagation\cite{rumelhart1986learning} by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
 
-We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01,0.02, ...,0.05. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100],[1000],[500,200],[1000,500,100],M,3000,10],[5000],[3000,1000],[5000,2000,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
+We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01,0.02, ...,0.05. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100],[1000],[500,200],[1000,500,100],M,3000,10], [5000],$ \\$[3000,1000],[5000,2000,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
 
 \subsubsection{Linear Support Vector Machine }
 A SVM \cite{pineaul13} constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
 
 Given training set $x_i\in R^p,i=1,...,n$, in two classes, and a target vector $y\in R^n$ with $y_i\in \{1,-1\}$, SVM sovles the following primal problem:
-\[
-\min_{w,b,\xi} \frac12 w^T w + C \sum_{i=1}^n \xi_i
-\]
+\begin{equation}
+\min_{w,b,\xi} \frac12 w^T w + C \sum_{i=1}^n \xi_i \label{eq:lsvm1}
+\end{equation}
 \[
 \mbox{subject to } y_i (w^T \phi(x_i)+b)\geq 1-\xi_i,
 \xi\geq 0, i=1,...,n.
 \]
 Its dual is
-\[
-\min_{\alpha}\frac12 \alpha^T Q\alpha - e^T\alpha
-\]
+\begin{equation}
+\min_{\alpha}\frac12 \alpha^T Q\alpha - e^T\alpha \label{eq:lsvm2}
+\end{equation}
 \[
 \mbox{subject to } y^T\alpha = 0, 0\leq \alpha_i\leq C,i=1,...,l
 \]
-where $e$ is the vector of all ones, $C>0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij}=K(x_i,x_j)$ and $\phi(x_i)^T\phi(x)$ is the kernel. The decision function is \\$sgn(\sum_{i=1}^n y_i\alpha_i K(x_i,x)+\rho)$.
+where $e$ is the vector of all ones, $C>0$ is the upper bound, $Q$ is an $n$ by $n$ positive semidefinite matrix, $Q_{ij}=K(x_i,x_j)$ and $\phi(x_i)^T\phi(x)$ is the kernel. The decision function is 
+\begin{equation}
+sgn(\sum_{i=1}^n y_i\alpha_i K(x_i,x)+\rho) \label{eq:lsvm3}
+\end{equation}
 
 
 \subsubsection{Convolutional Neural Network}
 Convolutional Neural Networks apply the idea of signal convolution to neural networks. The key idea is that groups of neurons, filters, are applied locally on subregions of the images instead of the whole image \cite{726791}. These filters are then convolved on input images, thus creating new images, or feature maps.
 
 The original input image is considered as a single feature map, $f(x,y)$. Generally the input to a convolutional layer is a set of $n_f$ feature maps, $f_i(x,y)$, on which the $n_j$ filters of size $(p\times q)$ $g_k(x,y)$ (also usually represented as a 4d-tensor $W$ of weights) are convolved, thus creating $n_g$ new feature maps $h_j(x,y)$:
-$$ h_j(x,y) = \sum_{u=0}^p\sum_{v=0}^q\sum_{i=0}^{n_f} f_i(x+u,y+v)g_j(u,v) $$
+\begin{equation}
+ h_j(x,y) = \sum_{u=0}^p\sum_{v=0}^q\sum_{i=0}^{n_f} f_i(x+u,y+v)g_j(u,v)  \label{eq:cnn1}
+ \end{equation}
 A bias is then added on each individual filter map, which is then bounded by an activation function (here we used the hyperbolic tangent $tanh$). We get that the output of a layer in terms of feature maps is 
-$$H_i(x,y) = \tanh(h_i(x,y) + b_i) = \tanh(W\ast x + b) $$
+\begin{equation}
+H_i(x,y) = \tanh(h_i(x,y) + b_i) = \tanh(W\ast x + b) \label{eq:cnn2}
+\end{equation}
+
 Finally, maxpooling is applied to the filter maps, where each $(s \times t)$ blocks of the maps are reduced to their maximum value. For $s=t=2$, it is essentially scaling the image down by a factor two, but keeping the max instead of taking, say, the average value. This gives the model some level of translation invariance, on top of the ability to detect highly local features.
 
 After having created a feature map representation of the input, we flatten the last feature maps to vector form, and feed it to a two layer feedforward neural network, with a $tanh$ hidden layer and a softmax output layer. The softmax function is as follows:
-$$ s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
+\begin{equation}
+s(x)_i = \frac{e^{x_i}}{\sum_j e^{x_j}} \label{eq:cnn3}
+\end{equation} 
 
 
 \subsection{Optimization}
