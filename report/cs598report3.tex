@@ -165,7 +165,7 @@ Yuting Wen \\
 
 \maketitle
 \begin{abstract}
-In this project, we aim at classify a much more difficult variation of the MNIST dataset of handwritten digits. We adopt feature selection and construction techniques together with five main machine learning algorithms: Gaussian Naive Bayes, Multilayer Perceptron, Linear Support Vector Machine, Convolutional Neural Network, and Generative Stochastic Network. We analyze and assess the parameter selection process and the performance of each algorithm. We conclude the report with discussion and suggestions for further improvement.
+In this project, we aim to classify a much more difficult variation of the MNIST dataset of handwritten digits. We adopt feature selection and construction techniques together with five main machine learning algorithms: Gaussian Naive Bayes, Multilayer Perceptron, Linear Support Vector Machine, Convolutional Neural Network, and Generative Stochastic Network. We analyze and assess the parameter selection process and the performance of each algorithm. We conclude the report with discussion and suggestions for further improvement.
 \end{abstract}
 
 %% A category with the (minimum) three required fields
@@ -184,7 +184,7 @@ The MNIST database of handwritten digits \cite{mnistlecun} is a standard touchst
 
 The dataset we are dealing with in this project is more challenging. Modifications of the original dataset include embossing, rotation, rescaling, and texture pattern. These artificial alterations introduce a great amount of noise and undoubtedly increase the  level of difficulty of the digit classification task. The modified dataset contains 50,000 training examples of 48x48 fixed size, and the test set comprises 20,000 instances which require classification \cite{comp598p3}.
 
-We decided to apply five different algorithms: Gaussian Naive Bayes (GNB), Multilayer Perceptron (MLP), Linear Support Vector Machine (LSVM), Deep Convolutional Neural Network (CNN), and Generative Stochastic Network (GSN) to the modified MNIST dataset. For the baseline algorithm, we chose GNB since features given as float numbers are continuous. For MLP, we cross-validated over different learning rates, numbers of hidden layers and units. For LSVM, we varied the marge penalty $C$.  For CNN we applied many layers of convolution with $tanh$ units, followed by a single hidden layer and a softmax prediction layer. For GSN, we used both supervised and unsupervised versions with and without walkback.
+We decided to apply five different algorithms: Gaussian Naive Bayes (GNB), Multilayer Perceptron (MLP), Linear Support Vector Machine (LSVM), Deep Convolutional Neural Network (CNN), and Generative Stochastic Network (GSN) to the modified MNIST dataset. For the baseline algorithm, we chose GNB since features given as float numbers are continuous. For MLP, we cross-validated over different learning rates, numbers of hidden layers and units. For LSVM, we varied the marge penalty $C$. For CNN we applied many layers of convolution with $tanh$ units, followed by a single hidden layer and a softmax prediction layer. For GSN, we used both supervised and unsupervised versions with and without walkback.
 % (one or two sentences summarizing each algorithm)
 
 The performance of algorithms varies widely. The baseline algorithm, Naive Bayes, provides around 40$\%$ validation accuracy, this may due to the fact that the Naive Bayes assumption does not hold in the digit classification task in general. MLPs achieve around 55$\%$ validation accuracy on average. LSVM performs rather poorly, probably due to the nature of the data, as images (especially natural images) tend not to be linearly separable in pixel space. CNNs seem to be the best suited models for this task, as we achieve around 93.6$\%$ validation accuracy, and 94.05$\%$ accuracy on the public test set. As a second generative model besides GNB, GSN provides around 50$\%$ validation accuracy with a supervised version.
@@ -229,9 +229,9 @@ With PCA, the same CNN model achieves 92.63$\%$ accuracy on the public test set,
 We chose Gaussian Naive Bayes as the baseline algorithm, Multilayer Perceptron, Linear Support Vector Machine as required algorithms, together with Convolutional Neural Networks and Generative Stochastic Neural Network as the optional algorithms. The following is a brief summary of central ideas for each algorithm, except for GSN since it is beyond the scope of this course.
 
 \subsubsection{Baseline: Gaussian Naive Bayes}
-Naive Bayes is one of the simplest machine learning algorithm. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
+Naive Bayes is one of the simplest machine learning algorithms. The theoretical foundation underlying the algorithm is the Naive Bayes assumption: conditional probabilities are independent of each other \cite{Bishop:2006:PRM:1162264, pineaul5}.
 
-Assume we are provided with $n$ training examples and $m$ features. In discrete case, Bayes rule and Naive Bayes assumption tell us that
+Assume we are provided with $n$ training examples and $m$ features. In a discrete case, Bayes rule and Naive Bayes assumption tell us that
 \begin{align*}
 P(Y | X_1 \cdots X_m ) &= \frac{P(Y) P ( X_1 \cdots X_m| Y )}{P(X_1 \cdots X_m)} &\textrm{by Bayes rule}\\
 &= \frac{P(Y) \Pi_{j=1}^m  P ( X_j | Y )}{P(X_1 \cdots X_m)} &\textrm{by NB assumption}
@@ -240,7 +240,7 @@ Hence given a new instance $(X_1\cdots X_m) = (x_1\cdots x_m)$, the predicted la
 \begin{equation}
 \hat{y} = \arg \max_{y_i} P(Y = y_i) \Pi_{j=1}^m P(X_j=x_j | Y = y_i) \label{eq:max}
 \end{equation}
-However, in image classification task, each image is represented by an array of float numbers which can be regarded as real numbers. In order to address the continuous case, we introduce Gaussian Naive Bayes and extend the above formula as follows. We assume $P(X_j=x_j | Y = y_i)$ has a normal (Gaussian) distribution with mean $\mu_{ij}$ and variance $\sigma_{ij}$. Note that while $X_j$ are continuous random variables which can stand for pixel intensities,  $Y$ is a discrete random variable corresponding to labels $1 - 9$.  The probability density function for $P(X_j=x_j | Y = y_i)$ is given below:
+However, in an image classification task, each image is represented by an array of float numbers which can be regarded as real numbers. In order to address the continuous case, we introduce Gaussian Naive Bayes and extend the above formula as follows. We assume $P(X_j=x_j | Y = y_i)$ has a normal (Gaussian) distribution with mean $\mu_{ij}$ and variance $\sigma_{ij}$. Note that while $X_j$ are continuous random variables which can stand for pixel intensities,  $Y$ is a discrete random variable corresponding to labels $1 - 9$.  The probability density function for $P(X_j=x_j | Y = y_i)$ is given below:
 \begin{equation}
 P(X_j=x_j | Y = y_i) =  f (x_j, \mu_{ij}, \sigma_{ij} ) =\frac{1}{\sigma_{ij}\sqrt{2\pi}}e^{-\frac{(x-\mu_{ij})^2}{2(\sigma_{ij})^2}} \label{eq:pdf}
 \end{equation}
@@ -265,7 +265,7 @@ where $f$ denotes the pdf of the normal distribution.
 \subsubsection{Multilayer Perceptron}
 An MLP is a feedforward neural network consisting of multiple layers of nodes in a directed graph, with each layer fully connected to the next one. Except for the input nodes, each node is a neuron with a nonlinear activation function. We may view it as a logistic regression classifier and the input data is projected into a hidden layer where it becomes linear separable. In our implementation, all hidden layers use tanh as the activation function, since it typically leads to faster training and even better local minima; and the output layer uses sigmoid, since it is a probability classifier.
 
-We train all MLP using back-propagation\cite{rumelhart1986learning} by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
+We train all MLPs using back-propagation\cite{rumelhart1986learning} by updating weights immediately after each batch of data is processed, based on the amount of error in the output compared to the target result. The cost function in our implementation is mean square error with L2 penalty to the weights.
 
 We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01 and 0.02. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100]$, $[3000]$, $[3000,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
 
@@ -373,13 +373,14 @@ We vary the marge penalty parameter $C$, but given the nature of the data, the p
 \subsubsection{Convolutional Neural Network}
 Considering the massive amount of time that is required to train CNNs, 5-fold validation error was not always considered when choosing hyper-parameters. Instead, we relied on a 4:1 split of the dataset. 
 
-We first tried using two convolutional layers, but quickly realized that using three convolutional layers followed by a two fully connected layers, hidden and output layers, seemed to work best. Similarly we used small filter sizes it gave the best early results. 
+We first tried using two convolutional layers, but quickly realized that using three convolutional layers followed by two fully connected layers, hidden and output layers, seemed to work best. Similarly we used small filter sizes as it gave the best early results. 
 
-As such, we did not do proper hyper-parameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.
+As such, we did not do a proper hyper-parameter search, and used our knowledge of the model and of the data along with optimal results for the original MNIST dataset to guide us. We can see in Figure \ref{fig:conv_train} that most models will converge to some low error. Note that we did not manage to train any model where the training error converged to some significantly lower error than the validation error (both are very close, as such they are not shown in the figure), and conclude that we could train much larger models before overfitting occurs. Unfortunately, the required training time for such models prohibits us from trying here.\\
+We use $7 \times 7$ filters for the first convolutional layer, and $5\times 5$ for the next two.
 \begin{figure} 
 \centering
 \includegraphics[width=1\columnwidth]{graphs/conv_train.png}  
-\caption{Validation error rate of different CNN model sizes during training}
+\caption{Validation error rate of different CNN model sizes during training. Is noted the number of filters of each convolutional layer, and then the number of hidden units.}
 \label{fig:conv_train}
 \end{figure}
 
