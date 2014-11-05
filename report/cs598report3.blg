@@ -4,45 +4,45 @@ The top-level auxiliary file: cs598report3.aux
 The style file: abbrv.bst
 Database file #1: sigproc.bib
 Warning--can't use both volume and number fields in rumelhart1986learning
-You've used 10 entries,
+You've used 11 entries,
             2118 wiz_defined-function locations,
-            561 strings with 5817 characters,
-and the built_in function-call counts, 3326 in all, are:
-= -- 337
-> -- 136
+            568 strings with 6186 characters,
+and the built_in function-call counts, 4106 in all, are:
+= -- 402
+> -- 219
 < -- 4
-+ -- 54
-- -- 44
-* -- 184
-:= -- 531
-add.period$ -- 38
-call.type$ -- 10
-change.case$ -- 51
++ -- 87
+- -- 76
+* -- 266
+:= -- 672
+add.period$ -- 41
+call.type$ -- 11
+change.case$ -- 70
 chr.to.int$ -- 0
-cite$ -- 11
-duplicate$ -- 128
-empty$ -- 283
-format.name$ -- 44
-if$ -- 735
+cite$ -- 12
+duplicate$ -- 139
+empty$ -- 311
+format.name$ -- 76
+if$ -- 876
 int.to.chr$ -- 0
-int.to.str$ -- 10
-missing$ -- 6
-newline$ -- 58
-num.names$ -- 20
-pop$ -- 84
+int.to.str$ -- 11
+missing$ -- 7
+newline$ -- 63
+num.names$ -- 22
+pop$ -- 101
 preamble$ -- 1
-purify$ -- 42
+purify$ -- 60
 quote$ -- 0
-skip$ -- 98
+skip$ -- 105
 stack$ -- 0
-substring$ -- 173
-swap$ -- 40
+substring$ -- 209
+swap$ -- 41
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 38
+type$ -- 42
 warning$ -- 1
-while$ -- 30
-width$ -- 12
-write$ -- 119
+while$ -- 34
+width$ -- 13
+write$ -- 130
 (There was 1 warning)
