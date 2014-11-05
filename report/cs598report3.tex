@@ -213,7 +213,7 @@ In Naive Bayes, we adopted normalization to  make it suitable for the algorithm.
 
 We chose not to use data preprocessing for MLP and LSVM. It is sufficient to apply the algorithms to the provided dataset. We concentrate more on the parameter selection instead of data preprocessing for these two algorithms.
 
-To train CNN, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits indenpendently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
+To train CNN, we generated new examples online by randomly rotating (between 0 and $2\pi$) the original images. This forced the network to learn to classify digits independently of rotation, which given our prior knowledge on the task is a reasonable assumption to make.
 
 For GSN, all layers have pre-activation Gaussian noise with standard deviation $0.5$. The first layer has post-activation salt-and-pepper noise of $30\%$ (i.e., $30\%$ of the pixels are corrupted and replaced with a 0 or a 1 with equal probability), and the last layer has post-activation Gaussian noise with $0.5$ standard deviation. The Gaussian injected noise is essential for the model itself but we keep it relatively small since the modified MNIST is already noisy. 
 
@@ -270,9 +270,9 @@ We train all MLP using back-propagation\cite{rumelhart1986learning} by updating 
 We use 5-fold cross-validation to select learning rates and numbers of hidden layers and units. Candidate learning rates include 0.01 and 0.02. A hidden layer list is a list of integers $[s_1,...,s_n]$ where $n$ is the number of hidden layers and $s_i$ is the number of hidden units in the i-th hidden layer. Our candidate hidden layer lists include $[100]$, $[3000]$, $[3000,100]$. We select the best learning rate and architecture according to the minimal mis-classification validation error.
 
 \subsubsection{Linear Support Vector Machine }
-A SVM \cite{pineaul13} constructs a set of hyperplanes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
+A SVM \cite{pineaul13} constructs a set of hyper-planes in a high or infinite dimensional space where the set of discriminate are linearly separable. The mappings to a higher dimensional space are designed in a way that dot products therein are easily computed in terms of the variables in the original space. This is typically achieved by defining them as a kernel function.
 
-Given training set $x_i\in R^p,i=1,...,n$, in two classes, and a target vector $y\in R^n$ with $y_i\in \{1,-1\}$, SVM sovles the following primal problem:
+Given training set $x_i\in R^p,i=1,...,n$, in two classes, and a target vector $y\in R^n$ with $y_i\in \{1,-1\}$, SVM solves the following primal problem:
 \begin{equation}
 \min_{w,b,\xi} \frac12 w^T w + C \sum_{i=1}^n \xi_i \label{eq:lsvm1}
 \end{equation}
@@ -428,7 +428,7 @@ The row normalized confusion matrix for Linear Support Vector Machine is given i
 \end{figure}
 
 \subsubsection{Convolutional Neural Network}
-We see in Figure \ref{fig:conv_conf} that the ConvNet has good accuracy accross classes. As mentionned earlier, better accuracy could probably be reached with larger model, as the ones we trained would not have a much lower training error than validation error (at most 2$\%$ lower, often less).
+We see in Figure \ref{fig:conv_conf} that the ConvNet has good accuracy across classes. As mentioned earlier, better accuracy could probably be reached with larger model, as the ones we trained would not have a much lower training error than validation error (at most 2$\%$ lower, often less).
 
 \begin{figure} 
 \centering
@@ -439,11 +439,11 @@ We see in Figure \ref{fig:conv_conf} that the ConvNet has good accuracy accross 
 
 
 \section{Discussion}
-The artificial alteration imposed on the MNIST handwritten digit dataset brings about a great amount of noise and complicates the classification task. Many typical machine learning algorithms are not suitable for this modified dataset anymore. For example, Naive Bayes can only achieve up to  $40 \%$ accuracy, even with Gaussian Naive Bayes and many refined preprocessing methods.  Linear Support Vector Machines achieved around $35\%$ prediction accuracy, which is even  worse  than the Naive Bayes. More elaborate feature selection and preprocessing techniques may be capable of improving the prediction accuracy in Naive Bayes or Support Vector Machines, but it appears to us that it is unfeasible to achieve an accuracy as high (above $80 \%$) as other more sophisticated algorithms in deep learning.
+The artificial alteration imposed on the MNIST handwritten digit dataset brings about a great amount of noise and complicates the classification task. Many typical machine learning algorithms are not suitable for this modified dataset anymore. For example, Naive Bayes can only achieve up to  $40 \%$ accuracy, even with Gaussian Naive Bayes and many refined preprocessing methods.  Linear Support Vector Machines achieved around $35\%$ prediction accuracy, which is even  worse  than the Naive Bayes. More elaborate feature selection and preprocessing techniques may be capable of improving the prediction accuracy in Naive Bayes or Support Vector Machines, but it appears to us that it is unfeasible to achieve an accuracy as high (above $90 \%$) as other more sophisticated algorithms in deep learning.
 
-On the other hand, deep learning models, in particular convolution neural networks, acheive much higher accuracy. Convolutional models take full advantage of the graphical nature of the input space and the high correlation between local visual features, and as such are capable of great scores on this particular task, with little need for feature preprocessing.
+On the other hand, deep learning models, in particular convolution neural networks, achieved much higher accuracy (around $90 \%$). Convolutional models take full advantage of the graphical nature of the input space and the high correlation between local visual features, and as such are capable of great scores on this particular task, with little need for feature preprocessing.
 
-To summarize, we endeavoured to classify the modified handwritten digits using four different algorithms. While some were capable of  achieving surprisingly high accuracy,  some illustrated the limitation of "shallow" algorithms. After all, machine learning problems can never be overcome using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
+To summarize, we endeavored to classify the modified handwritten digits using four different algorithms. While some were capable of  achieving surprisingly high accuracy,  some illustrated the limitation of "shallow" algorithms. After all, machine learning problems can never be overcome using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
 
 \newpage
 
