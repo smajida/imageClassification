@@ -390,7 +390,7 @@ We provide further analysis on testing and validation results with help of figur
 We also present the confusion matrix corresponding to the Gaussian Naive Bayes algorithm running with 5-fold cross validation on $L2$ normalized data in Figure \ref{fig:gnb_cm}. We normalized the row vectors of the confusion matrix so that we could make fair comparison among different classes. As can be seen from the normalized confusion matrix, the GNB classifier is capable of distinguish $0$ and $1$ from the others, but it performs relatively poor when classifying $2$ to $7$. Its comparatively promising performance on classifying $0$ may be due to the fact that the digit $0$ is least susceptible to all artificial alterations imposed on the original MNIST dataset (especially rotation).
 \begin{figure} 
 \centering
-\includegraphics[width=0.7\columnwidth]{graphs/gnb_cm1.png}  
+\includegraphics[width=0.73\columnwidth]{graphs/gnb_cm1.png}  
 \caption{Normalized confusion matrix for Gaussian Naive Bayes with train set size = 40,000 and test set size = 10,000}
 \label{fig:gnb_cm}
 \end{figure}
@@ -443,7 +443,7 @@ The artificial alteration imposed on the MNIST handwritten digit dataset brings 
 
 On the other hand, deep learning models, in particular convolution neural networks, achieved much higher accuracy (around $90 \%$). Convolutional models take full advantage of the graphical nature of the input space and the high correlation between local visual features, and as such are capable of great scores on this particular task, with little need for feature preprocessing.
 
-To summarize, we endeavored to classify the modified handwritten digits using four different algorithms. While some were capable of  achieving surprisingly high accuracy,  some illustrated the limitation of "shallow" algorithms. After all, machine learning problems can never be overcome using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
+To summarize, we endeavored to classify the modified handwritten digits using four different algorithms. While deep learning models were capable of  achieving surprisingly high accuracy,  Naive Bayes and Linear Support Vector Machines illustrated the limitation of "shallow" algorithms. After all, machine learning problems can never be overcome using a same fixed method. Instead, it requires the exploration of versatile tools, and that is where the charm of machine learning lies.
 
 \newpage
 
