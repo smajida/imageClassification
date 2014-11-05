@@ -398,13 +398,13 @@ We also present the confusion matrix corresponding to the Gaussian Naive Bayes a
 
 \subsubsection{Multilayer Perceptron}
 
-With $50$ mini-batch size and various epochs, we obtain the  results (shown in Table \ref{table:1}) for MLP with different learning rates and different numbers of hidden layers and units.
+With $50$ mini-batch size and various epochs, we obtain the  results (shown in Table \ref{table:1}) for MLP with different learning rates and different numbers of hidden layers and units. Note that LR indicates the initial learning rate, MSE denotes the mean squared error, and  validation CE means the classification error.
 
 \begin{table*}[!htbp]
 \centering
   \begin{tabular}{| c | c  | c | c|}
     \hline
-LR\footnote{initial learning rate} & hidden layer sizes & validation MSE\footnote{mean squared error} & validation CE\footnote{classification error}\\ \hline
+LR & hidden layer sizes & validation MSE & validation CE\\ \hline
 
 0.01 & [100] & 68$\%$ & 52$\%$ \\ \hline
 0.01 & [3000] & 71$\%$ & 56$\%$  \\ \hline
